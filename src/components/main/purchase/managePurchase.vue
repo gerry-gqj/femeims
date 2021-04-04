@@ -1,23 +1,42 @@
 <template>
   <div>
     <div style="position: relative">
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <el-form :model="ruleForm"
+             status-icon
+             :rules="rules"
+             ref="ruleForm"
+             label-width="100px"
+             class="demo-ruleForm">
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="订单编号: " prop="purchaseId">
-            <el-input type="text" v-model="ruleForm.purchaseId" autocomplete="off" style="width: 200px" clearable="true"></el-input>
+            <el-input type="text"
+                      v-model="ruleForm.purchaseId"
+                      autocomplete="off"
+                      style="width: 200px"
+                      :clearable="true"></el-input>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="订单提交时间: " prop="startTimeFrom">
-            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.startTimeFrom" style="width: 200px;" clearable="true"></el-date-picker>
-          </el-form-item>
+            <el-date-picker type="date"
+                            placeholder="选择日期"
+                            v-model="ruleForm.startTimeFrom"
+                            style="width: 200px;"
+                            :clearable="true"
+                            value-format="yyyy-MM-dd"></el-date-picker>
+            </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="至: " prop="startTimeTo">
-            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.startTimeTo" style="width: 200px;" clearable="true"></el-date-picker>
+            <el-date-picker type="date"
+                            placeholder="选择日期"
+                            v-model="ruleForm.startTimeTo"
+                            style="width: 200px;"
+                            :clearable="true"
+                            value-format="yyyy-MM-dd"></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
@@ -26,19 +45,33 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="供应商" prop="supplier" >
-            <el-input type="text" v-model="ruleForm.supplier"  style="width: 200px;" clearable="true"></el-input>
+            <el-input type="text"
+                      v-model="ruleForm.supplier"
+                      style="width: 200px;"
+                      :clearable="true"></el-input>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="订单完成时间: " prop="endTimeFrom">
-            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.endTimeFrom" style="width: 200px;" clearable="true"></el-date-picker>
+            <el-date-picker type="date"
+                            placeholder="选择日期"
+                            v-model="ruleForm.endTimeFrom"
+                            style="width: 200px;"
+                            :clearable="true"
+                            value-format="yyyy-MM-dd">
+            </el-date-picker>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="至: " prop="endTimeTo">
-            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.endTimeTo" style="width: 200px;" clearable="true"></el-date-picker>
+            <el-date-picker type="date"
+                            placeholder="选择日期"
+                            v-model="ruleForm.endTimeTo"
+                            style="width: 200px;"
+                            :clearable="true"
+                            value-format="yyyy-MM-dd"></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
@@ -47,7 +80,10 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="订单状态" prop="status">
-            <el-select v-model="ruleForm.status" placeholder="请选择" style="width: 200px" clearable="true">
+            <el-select v-model="ruleForm.status"
+                       placeholder="请选择"
+                       style="width: 200px"
+                       :clearable="true">
               <el-option label="已提交" value="已提交"></el-option>
               <el-option label="已完成" value="已完成"></el-option>
               <el-option label="已取消" value="已取消"></el-option>
@@ -56,14 +92,27 @@
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="订单取消时间: " prop="returnTimeFrom">
-            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.returnTimeFrom" style="width: 200px;" clearable="true"></el-date-picker>
+          <el-form-item label="订单取消时间: "
+                        prop="returnTimeFrom">
+            <el-date-picker type="date"
+                            placeholder="选择日期"
+                            v-model="ruleForm.returnTimeFrom"
+                            style="width: 200px;"
+                            :clearable="true"
+                            value-format="yyyy-MM-dd">
+            </el-date-picker>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item label="至: " prop="returnTimeTo">
-            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.returnTimeTo" style="width: 200px;" clearable="true"></el-date-picker>
+            <el-date-picker type="date"
+                            placeholder="选择日期"
+                            v-model="ruleForm.returnTimeTo"
+                            style="width: 200px;"
+                            :clearable="true"
+                            value-format="yyyy-MM-dd">
+            </el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
@@ -81,14 +130,15 @@
   </div>
 
     <div>
-    <el-table :data="tableData" border style="width: 100%" max-height="auto">
-
-      <el-table-column prop="purchaseId" label="编号" width="50"></el-table-column>
-      <el-table-column prop="supplier" label="供应商" width="100"></el-table-column>
-      <el-table-column prop="purchaseMotorType" label="类型" width="100"></el-table-column>
-      <el-table-column prop="purchaseMotorModel" label="型号" width="120"></el-table-column>
-      <el-table-column prop="purchaseMotorPrice" label="单价" width="100"></el-table-column>
-      <el-table-column prop="purchaseMotorQuality" label="数量" width="100"></el-table-column>
+    <el-table :data="tableData"
+              border style="width: 100%" max-height="auto"
+              :header-cell-style="{background:'#24262F',color:'#409eff'}">
+      <el-table-column prop="purchaseId" label="编号" width="100"></el-table-column>
+      <el-table-column prop="purchaseSupplier" label="供应商" width="120"></el-table-column>
+      <el-table-column prop="purchaseMotorType" label="类型" width="80"></el-table-column>
+      <el-table-column prop="purchaseMotorModel" label="型号" width="150"></el-table-column>
+      <el-table-column prop="purchaseMotorPrice" label="单价" width="60"></el-table-column>
+      <el-table-column prop="purchaseMotorQuality" label="数量" width="60"></el-table-column>
       <el-table-column prop="purchaseStartTime" label="开始时间" width="100"></el-table-column>
       <el-table-column prop="purchaseEndTime" label="完成时间" width="100"></el-table-column>
       <el-table-column prop="purchaseReturnTime" label="取消时间" width="100"></el-table-column>
@@ -97,12 +147,21 @@
 
       <el-table-column label="选项" width="150" fixed="right">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleSure(scope.row)" type="primary"  plain v-if="scope.row.purchaseStatus==='已提交'">确认</el-button>
-          <el-button size="mini" @click="handleCancel(scope.row)" type="danger"  plain v-if="scope.row.purchaseStatus!=='已取消'">取消</el-button>
+          <el-button size="mini"
+                     @click="handleSure(scope.row)"
+                     type="primary"
+                     plain
+                     v-if="scope.row.purchaseStatus==='已提交'">确认
+          </el-button>
+          <el-button size="mini"
+                     @click="handleCancel(scope.row)"
+                     type="danger"
+                     plain
+                     v-if="scope.row.purchaseStatus!=='已取消'">取消
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
-
     </div>
   </div>
 </template>
@@ -125,6 +184,7 @@ export default {
 
         startTimeFrom:'',
         startTimeTo:'',
+        time:'',
 
         endTimeFrom:'',
         endTimeTo:'',
@@ -134,15 +194,6 @@ export default {
       },
       tableData: [],
       rules: {
-        purchaseId: [
-          { trigger: 'blur' }
-        ],
-        supplier: [
-          {trigger: 'blur' }
-        ],
-        state: [
-          {trigger: 'blur' }
-        ]
       },
     };
   },
@@ -156,7 +207,7 @@ export default {
       this.axios.post("/purchase/getPurchaseByInfo/",
           this.$qs.stringify({
             purchaseId:this.ruleForm.purchaseId,
-            supplier:this.ruleForm.supplier,
+            purchaseSupplier:this.ruleForm.supplier,
             purchaseStatus:this.ruleForm.status,
 
             purchaseStartTimeFrom:this.ruleForm.startTimeFrom,
@@ -170,6 +221,7 @@ export default {
           })).then((response)=>{
              console.log(response.data)
              this.tableData=response.data
+              console.log(this.ruleForm.startTimeFrom)
            }).catch((error)=>{
               console.log(error)
           })
@@ -196,12 +248,13 @@ export default {
             this.$qs.stringify({
               purchaseId:row.purchaseId,
               purchaseStatus:'已完成',
+              purchaseOperatorConfirm:this.$store.state.userName,
             })).then((response)=>{
-          console.log(response.data)
-          this.reload
-        }).catch((error)=>{
-          console.log(error)
-        })
+              console.log(response.data)
+              this.submitForm()
+            }).catch((error)=>{
+              console.log(error)
+            })
       })
 
     },
@@ -211,7 +264,6 @@ export default {
      * */
     handleCancel(row) {
       console.log(row);
-
       this.$confirm("是否取消订单",{
         confirmButtonText:"确认",
         cancelButtonText:"取消",
@@ -220,9 +272,10 @@ export default {
         this.axios.post("/purchase/updatePurchase/",this.$qs.stringify({
           purchaseId:row.purchaseId,
           purchaseStatus:'已取消',
+          purchaseOperatorCancel:this.$store.state.userName,
         })).then((response)=>{
           console.log(response.data)
-          this.reload
+          this.submitForm()
         }).catch((error)=>{
           console.log(error)
         })
@@ -243,6 +296,9 @@ export default {
           })
     }
   },
+  // activated(){
+  //   this.getPurchase()
+  // },
   mounted() {
     this.getPurchase()
   }

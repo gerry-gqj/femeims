@@ -7,10 +7,10 @@
                 <div class="formBx">
                     <form>
                         <h2>Sign In</h2>
-                        <input type="text" placeholder="Email" v-model="InEmail">
-                        <input type="password" placeholder="Password" v-model="InPassword">
-                        <input type="submit" value="Login" @click="signIn()">
-                        <p class="signup">Don't have an account? <a @click="toggleForm()">Sign up.</a></p>
+                        <el-input type="text" placeholder="Email" v-model="InEmail" style="padding-top: 20px;"/>
+                        <el-input type="password" placeholder="Password" v-model="InPassword" show-password/>
+                        <input type="submit" value="Login" @click="signIn"/>
+                        <p class="signup">Don't have an account? <a @click="toggleForm">Sign up.</a></p>
                     </form>
                 </div>
             </div>
@@ -18,12 +18,12 @@
                 <div class="formBx">
                     <form>
                         <h2>Create an account</h2>
-                        <input type="text" placeholder="Username" v-model="UpUsername">
-                        <input type="text" placeholder="Email Address" v-model="UpEmail">
-                        <input type="password" placeholder="Create Password" v-model="UpPassword">
-                        <input type="password" placeholder="Confirm Password" v-model="ConfirmPassword">
-                        <input type="submit" value="Sign Up" @click="signUp()">
-                        <p class="signup">Already have an account? <a @click="toggleForm()">Sign in.</a></p>
+                        <el-input type="text" placeholder="Username" v-model="UpUsername" style="padding-top: 20px"/>
+                        <el-input type="text" placeholder="Email Address" v-model="UpEmail"/>
+                        <el-input type="password" placeholder="Create Password" v-model="UpPassword" show-password/>
+                        <el-input type="password" placeholder="Confirm Password" v-model="ConfirmPassword" show-password/>
+                        <input type="submit" value="Sign Up" @click="signUp">
+                        <p class="signup">Already have an account? <a @click="toggleForm">Sign in.</a></p>
                     </form>
                 </div>
                 <div class="imgBx"><img src="../assets/signup.jpg"></div>
@@ -95,6 +95,12 @@ export default {
                     this.$message({
                       type:'success',
                       message:'登录成功',
+                    })
+                    this.$store.commit({
+                      type:'edit',
+                      userId:response.data["userId"],
+                      userName:response.data["userName"],
+                      position:response.data["position"],
                     })
                     this.$router.push("/main/home")
                   }else {
@@ -215,7 +221,7 @@ section .container .user .formBx{
     position: relative;
     width: 50%;
     height: 100%;
-    background: #fff;
+    background: #90c8e0;
     display: flex;
     justify-content: center;
     align-items: center;

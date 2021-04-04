@@ -5,19 +5,19 @@
         <el-row :gutter="20">
           <el-col :span="6" :offset="2">
             <el-form-item label="用户ID: " prop="userID">
-              <el-input type="text" v-model="ruleForm.userID" style="width: 200px" clearable="true"></el-input>
+              <el-input type="text" v-model="ruleForm.userID" style="width: 200px" :clearable="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="6">
             <el-form-item label="用户名: " prop="userName">
-              <el-input type="text" v-model="ruleForm.userName"  style="width: 200px" clearable="true"></el-input>
+              <el-input type="text" v-model="ruleForm.userName"  style="width: 200px" :clearable="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="6">
             <el-form-item label="用户邮箱: " prop="userEmail">
-              <el-input type="text" v-model="ruleForm.userEmail"  style="width: 200px" clearable="true"></el-input>
+              <el-input type="text" v-model="ruleForm.userEmail"  style="width: 200px" :clearable="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -25,7 +25,7 @@
         <el-row :gutter="20">
           <el-col :span="6" :offset="2">
             <el-form-item label="性别: " prop="userGender">
-              <el-select v-model="ruleForm.userGender" placeholder="请选择" style="width: 200px" clearable="true">
+              <el-select v-model="ruleForm.userGender" placeholder="请选择" style="width: 200px" :clearable="true">
                 <el-option label="男" value="男"></el-option>
                 <el-option label="女" value="女"></el-option>
 
@@ -35,7 +35,7 @@
 
           <el-col :span="6">
             <el-form-item label="状态: " prop="status">
-              <el-select v-model="ruleForm.status" placeholder="请选择" style="width: 200px" clearable="true">
+              <el-select v-model="ruleForm.status" placeholder="请选择" style="width: 200px" :clearable="true">
                 <el-option label="已激活" value="已激活"></el-option>
                 <el-option label="未激活" value="未激活"></el-option>
                 <el-option label="已注销" value="已注销"></el-option>
@@ -46,7 +46,7 @@
 
           <el-col :span="6">
             <el-form-item label="职位: " prop="position">
-              <el-select v-model="ruleForm.position" placeholder="请选择" style="width: 200px" clearable="true">
+              <el-select v-model="ruleForm.position" placeholder="请选择" style="width: 200px" :clearable="true">
                 <el-option label="系统管理员" value="1"></el-option>
                 <el-option label="经理" value="2"></el-option>
                 <el-option label="员工" value="3"></el-option>
@@ -68,24 +68,30 @@
     </div>
 
     <div>
-      <el-table :data="tableData" border style="width: 100%" max-height="auto">
-
+      <el-row>
+        <el-col :span="24">
+      <el-table :data="tableData"
+                border
+                style="width: 100%" max-height="auto"
+                :header-cell-style="{background:'#24262F',color:'#409eff'}">
         <el-table-column prop="userId" label="用户ID" width="150"></el-table-column>
-        <el-table-column prop="userName" label="用户名" width="150"></el-table-column>
+        <el-table-column prop="userName" label="用户名" width="200"></el-table-column>
         <el-table-column prop="userEmail" label="用户邮箱" width="250"></el-table-column>
         <el-table-column prop="userGender" label="性别" width="150"></el-table-column>
         <el-table-column prop="position.postName" label="职位" width="150"></el-table-column>
         <el-table-column prop="userStatus" label="状态" width="150"></el-table-column>
 
-        <el-table-column label="选项" width="200" fixed="right">
+        <el-table-column label="选项" width="180" fixed="right">
           <template slot-scope="scope">
             <el-button size="mini" @click="activeAccount(scope.row)" type="primary" plain v-if="scope.row.userStatus==='未激活'||scope.row.userStatus==='已注销'">激活</el-button>
             <el-button size="mini" @click="logoutAccount(scope.row)" type="danger" plain v-if="scope.row.userStatus==='已激活'&&scope.row.position.postName!=='系统管理员'">注销</el-button>
-            <el-button size="mini" @click="activeManager(scope.row)" type="danger" plain v-if="scope.row.position.postName==='经理'">员工</el-button>
-            <el-button size="mini" @click="activeEmployee(scope.row)" type="danger" plain v-if="scope.row.position.postName==='员工'">经理</el-button>
+            <el-button size="mini" @click="activeManager(scope.row)" type="info" plain v-if="scope.row.position.postName==='经理'&&scope.row.userStatus!=='已注销'">员工</el-button>
+            <el-button size="mini" @click="activeEmployee(scope.row)" type="success" plain v-if="scope.row.position.postName==='员工'&&scope.row.userStatus!=='已注销'">经理</el-button>
           </template>
         </el-table-column>
       </el-table>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -141,9 +147,7 @@ export default {
       ).then((response=>{
         console.log(response)
         this.tableData=response.data
-      })).then(()=>{
-        this.reload
-      }).catch((error)=>{
+      })).catch((error)=>{
         console.log(error)
       })
     },
@@ -172,7 +176,13 @@ export default {
               userId:row.userId
             })
         ).then(()=>{
-          this.reload
+          this.submitForm()
+          this.$message({
+            type:"success",
+            message:"成功激活用户"+row.userName
+          })
+        }).catch((error)=>{
+          console.log(error)
         })
       })
     },
@@ -193,11 +203,16 @@ export default {
               userStatus:"已注销",
               userId:row.userId
             })
-        ).then(()=>{
-          this.reload
-        }).catch((error)=>{
-          console.log(error)
-        })
+            ).then((response)=>{
+              console.log(response.data)
+              this.submitForm()
+              this.$message({
+                type:"warning",
+                message:"成功注销用户"+row.userName
+              })
+            }).catch((error)=>{
+              console.log(error)
+            })
       })
     },
 
@@ -215,14 +230,16 @@ export default {
             .post("/user/updateUserInfo/",
             this.$qs.stringify({
               userId:row.userId,
-              positionId:3,
+              positionId:"3",
+            }))}).then(()=>{
+              this.submitForm()
+              this.$message({
+                type:"warning",
+                message:"成功修改"+row.userName+"为员工"
+              })
+            }).catch((error)=>{
+              console.log(error)
             })
-        )
-      }).then(()=>{
-        this.reload
-      }).catch((error)=>{
-        console.log(error)
-      })
     },
 
     /**
@@ -233,24 +250,25 @@ export default {
       this.$confirm("是否修改用户:"+row.userName+"为经理","提示",{
         confirmButtonText:"确认",
         cancelButtonText:"取消",
-        type:"warning"
+        type:"success"
       }).then(()=>{
         this.axios
-            .post("/user/updateUser/",
+            .post("/user/updateUserInfo/",
             this.$qs.stringify({
               userId:row.userId,
-              positionId:2,
-            }))
-      }).then(()=>{
-        this.reload()
-      }).catch((error)=>{
-        console.log(error)
-      })
-
-      /**
-       * 重新调用方法刷新表格数据
-       * */
-      // this.getUserInfo()
+              positionId:"2",
+            })).then(()=>{
+              this.$message({
+                type:"success",
+                message:"成功修改"+row.userName+"为经理"
+              })
+              /**
+               * 重新调用方法刷新表格数据
+               * */
+              this.submitForm()
+            }).catch((error)=>{
+                console.log(error)
+        })})
     },
 
     /**
@@ -264,7 +282,7 @@ export default {
             console.log(response)
             this.tableData=response.data
           })
-    }
+    },
   },
   mounted() {
 
@@ -277,5 +295,11 @@ export default {
 </script>
 
 <style scoped>
+.el-table .warning-row {
+  background: oldlace;
+}
 
+.el-table .success-row {
+  background: #f0f9eb;
+}
 </style>

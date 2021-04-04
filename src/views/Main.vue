@@ -6,12 +6,17 @@
       <el-col :span="2">
         <h3 style="text-align: center;line-height: 70px;padding-left: 30px;color: #409eff">Emeims</h3>
       </el-col>
-      <el-col :span="2" :offset="20">
-        <div style="line-height: 85px">
-          <a style="color: steelblue;line-height: 100%">
-            <el-avatar icon="el-icon-user-solid"></el-avatar>
-            用户
-          </a>
+      <el-col :span="2" :offset="19">
+        <div>
+          <el-dropdown trigger="click">
+            <span class="demonstration" style="color: #409eff">{{$store.state.userName}}
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="userInfo">用户信息</el-dropdown-item>
+              <el-dropdown-item @click.native="signOut">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </el-col>
     </el-row>
@@ -87,26 +92,69 @@
       </el-menu>
     </el-aside>
 
-
     <el-main>
       <el-card>
-        <router-view/>
+        <keep-alive>
+          <router-view/>
+        </keep-alive>
       </el-card>
     </el-main>
+
   </el-container>
 </el-container>
-
-
+  
+  <div>
+    <el-dialog title="用户信息" :visible.sync="dialogFormVisible" :center.sync="centerDialogVisible" width="40%">
+      <el-form :model="form"  label-width="100px" style="height: 480px;width: 450px;text-align: center;padding-left: 60px">
+        <el-form-item label="用户Id: ">
+          <el-input v-model="form.userId" :disabled="true" style="width: 200px;"></el-input>
+        </el-form-item>
+        <el-form-item label="用户名: ">
+          <el-input v-model="form.userName" style="width: 200px;"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱: ">
+          <el-input v-model="form.userEmail" style="width: 200px;"></el-input>
+        </el-form-item>
+        <el-form-item label="密码: ">
+          <el-input v-model="form.userPassword" style="width: 200px;"></el-input>
+        </el-form-item>
+        <el-form-item label="性别: ">
+          <el-select v-model="form.userGender" style="width: 200px;">
+            <el-option label="男" value="男"></el-option>
+            <el-option label="女" value="女"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="职位: ">
+          <el-input v-model="form.userPosition" :disabled="true" style="width: 200px;"></el-input>
+        </el-form-item>
+        <el-form-item >
+          <el-button type="primary" @click="handleModify">修改</el-button>
+          <el-button @click="dialogFormVisible = false">退出</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+  </div>
 </div>
 </template>
 
 <script>
 
 export default {
-    name:'Main',
+  name:'Main',
   components: {},
   data() {
       return {
+        dialogFormVisible:false,
+        centerDialogVisible:true,
+        form:{
+          userId:'',
+          userName:'',
+          userEmail:'',
+          userPassword:'',
+          userGender:'',
+          userPosition:'',
+        }
+
       };
     },
     methods: {
@@ -115,8 +163,63 @@ export default {
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
+      },
+      signOut(){
+        this.$confirm("是否退出登录",{
+          confirmButtonText:"确认",
+          cancelButtonText:"取消",
+          type:"warning"
+        }).then(()=>{
+          this.$router.push('/begin')
+          this.$store.commit({
+            type:"clear",
+          })
+        })
+      },
+      userInfo(){
+        this.dialogFormVisible=true
+        this.axios.post("/user/getUserByInfo",this.$qs.stringify({
+          userId:this.$store.state.userId
+        })).then((response)=>{
+          console.log(response.data);
+          this.form.userId=response.data[0]["userId"];
+          this.form.userName=response.data[0]["userName"];
+          this.form.userEmail=response.data[0]["userEmail"];
+          this.form.userPassword=response.data[0]["userPassword"];
+          this.form.userGender=response.data[0]["userGender"];
+          this.form.userPosition=response.data[0]["position"]["postName"];
+        }).catch((error)=>{
+          console.log(error)
+        })
+      },
+      handleModify(){
+        this.$confirm("是否确认修改",{
+          confirmButtonText:"确认",
+          cancelButtonText:"取消",
+          type:"warning"
+        }).then(()=>{
+          this.axios.post("/user/updateUserInfo",this.$qs.stringify({
+            userId:this.form.userId,
+            userName:this.form.userName,
+            userEmail:this.form.userEmail,
+            userGender:this.form.userGender,
+            userPassword:this.form.userPassword,
+          })).then((response)=>{
+            console.log(response.data)
+            this.$store.commit({
+              type:'edit',
+              userName:this.form.userName,
+            })
+            this.$message({
+              type:"success",
+              message:"修改成功"
+            })
+          }).catch((error)=>{
+            console.log(error)
+          })
+        })
       }
-    }
+    },
 }
 
 </script>
@@ -207,6 +310,16 @@ body {
   top: 60px;
   bottom: 0;
   overflow-y: scroll;
+}
+
+.el-icon-arrow-down {
+  font-size: 12px;
+}
+.demonstration {
+  display: block;
+  color: #8492a6;
+  font-size: 14px;
+  margin-bottom: 20px;
 }
 
 </style>
