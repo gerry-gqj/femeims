@@ -61,7 +61,7 @@
     </div>
 
     <div>
-      <el-dialog title="用户信息" :visible.sync="dialogFormVisible" :center.sync="centerDialogVisible" width="40%">
+      <el-dialog title="订单信息" :visible.sync="dialogFormVisible" :center.sync="centerDialogVisible" width="40%">
         <el-form :model="confirmForm"  label-width="100px" style="width: 450px;text-align: center;padding-left: 60px">
           <el-form-item label="订单号: ">
             <el-input v-model="confirmForm.purchaseId" :disabled="true" style="width: 200px;"></el-input>
@@ -118,7 +118,7 @@ export default {
       if (!boolean) {
         // this.$message.warning('无效价格')
         // this.ruleForm.price=''
-        callback("请输入数量(小数点后两位)");
+        callback("请输入价格(小数点后两位)");
       }
     }
 
@@ -236,7 +236,6 @@ export default {
         })
       })
     },
-
     /*清空表单*/
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -250,7 +249,6 @@ export default {
         this.ruleForm.total = this.ruleForm.price* this.ruleForm.quantity;
     },
   },
-
 }
 </script>
 

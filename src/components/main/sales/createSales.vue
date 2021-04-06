@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" style="padding-top: 35px">
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" :status-icon="true" label-width="100px" class="demo-ruleForm" style="padding-top: 35px">
         <el-row>
           <el-col :span="12" :offset="6">
             <el-form-item label="客户: " prop="client" >
@@ -61,7 +61,7 @@
     </div>
 
     <div>
-      <el-dialog title="用户信息" :visible.sync="dialogFormVisible" :center.sync="centerDialogVisible" width="40%">
+      <el-dialog title="订单信息" :visible.sync="dialogFormVisible" :center.sync="centerDialogVisible" width="40%">
         <el-form :model="confirmForm"  label-width="100px" style="width: 450px;text-align: center;padding-left: 60px">
           <el-form-item label="订单号: ">
             <el-input v-model="confirmForm.salesId" :disabled="true" style="width: 200px;"></el-input>

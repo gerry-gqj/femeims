@@ -252,6 +252,10 @@ export default {
             })).then((response)=>{
               console.log(response.data)
               this.submitForm()
+              this.$message({
+                type:"success",
+                message:'确认成功'
+              })
             }).catch((error)=>{
               console.log(error)
             })
@@ -275,6 +279,10 @@ export default {
           purchaseOperatorCancel:this.$store.state.userName,
         })).then((response)=>{
           console.log(response.data)
+          this.$message({
+            type:"success",
+            message:'取消成功'
+          })
           this.submitForm()
         }).catch((error)=>{
           console.log(error)

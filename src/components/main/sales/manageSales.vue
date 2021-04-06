@@ -44,7 +44,7 @@
 
         <el-row :gutter="20">
           <el-col :span="8">
-            <el-form-item label="供应商" prop="client" >
+            <el-form-item label="客户" prop="client" >
               <el-input type="text"
                         v-model="ruleForm.client"
                         style="width: 200px;"
@@ -134,7 +134,8 @@
                 border style="width: 100%" max-height="auto"
                 :header-cell-style="{background:'#24262F',color:'#409eff'}">
         <el-table-column prop="salesId" label="编号" width="100"></el-table-column>
-        <el-table-column prop="salesSupplier" label="供应商" width="120"></el-table-column>
+        <el-table-column prop="salesClient" label="客户" width="120"></el-table-column>
+        <el-table-column prop="salesMotorSupplier" label="供应商" width="120"></el-table-column>
         <el-table-column prop="salesMotorType" label="类型" width="80"></el-table-column>
         <el-table-column prop="salesMotorModel" label="型号" width="150"></el-table-column>
         <el-table-column prop="salesMotorPrice" label="单价" width="60"></el-table-column>
@@ -207,7 +208,7 @@ export default {
       this.axios.post("/sales/getSalesByInfo/",
           this.$qs.stringify({
             salesId:this.ruleForm.salesId,
-            salesSupplier:this.ruleForm.client,
+            salesClient:this.ruleForm.client,
             salesStatus:this.ruleForm.status,
 
             salesStartTimeFrom:this.ruleForm.startTimeFrom,
@@ -252,11 +253,14 @@ export default {
             })).then((response)=>{
           console.log(response.data)
           this.submitForm()
+          this.$message({
+            type:"success",
+            message:'确认成功'
+          })
         }).catch((error)=>{
           console.log(error)
         })
       })
-
     },
 
     /**
@@ -273,9 +277,18 @@ export default {
           salesId:row.salesId,
           salesStatus:'已取消',
           salesOperatorCancel:this.$store.state.userName,
+          salesMotorQuality:row.salesMotorQuality,
+          salesTotalPrice:row.salesTotalPrice,
+          supplier:row.salesMotorSupplier,
+          type:row.salesMotorType,
+          model:row.salesMotorModel
         })).then((response)=>{
           console.log(response.data)
           this.submitForm()
+          this.$message({
+            type:"success",
+            message:'取消成功'
+          })
         }).catch((error)=>{
           console.log(error)
         })

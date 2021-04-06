@@ -6,7 +6,7 @@
       <el-col :span="2">
         <h3 style="text-align: center;line-height: 70px;padding-left: 30px;color: #409eff">Emeims</h3>
       </el-col>
-      <el-col :span="2" :offset="19">
+      <el-col :span="2" :offset="20">
         <div>
           <el-dropdown trigger="click">
             <span class="demonstration" style="color: #409eff">{{$store.state.userName}}
@@ -23,6 +23,7 @@
   </el-header>
   <el-container>
     <el-aside width="250px">
+<!--      <h3 style="text-align: center;line-height: 70px;padding-left: 30px;color: #409eff">Emeims</h3>-->
       <el-menu
           default-active="2"
           class="el-menu-vertical-demo"
@@ -85,7 +86,7 @@
           </el-menu-item>
         </el-submenu>
 
-          <el-menu-item index="/main/account/manage">
+          <el-menu-item index="/main/account/manage" v-if="this.$store.state.position==='系统管理员'">
             <i class="el-icon-user"></i>
             <span>帐号管理</span>
           </el-menu-item>
@@ -291,6 +292,7 @@ body {
   width: 100%;
   height: 60px;
   line-height: 60px;
+  /*left: 210px;*/
   background-color: #24262F;
 }
 
@@ -298,6 +300,7 @@ body {
   display: block;
   position: absolute;
   left: 0;
+  /*top: 60px;*/
   top: 60px;
   bottom: 0;
 }
