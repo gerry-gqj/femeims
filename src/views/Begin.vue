@@ -7,8 +7,8 @@
                 <div class="formBx">
                     <form>
                         <h2>Sign In</h2>
-                        <el-input type="text" placeholder="Email" v-model="InEmail" style="padding-top: 20px;"/>
-                        <el-input type="password" placeholder="Password" v-model="InPassword" show-password/>
+                        <el-input type="text" placeholder="Email" v-model="InEmail" style="margin-top: 20px;" maxlength="30" show-word-limit/>
+                        <el-input type="password" placeholder="Password" v-model="InPassword" show-password maxlength="30" show-word-limit/>
                         <input type="submit" value="Login" @click="signIn"/>
                         <p class="signup">Don't have an account? <a @click="toggleForm">Sign up.</a></p>
                     </form>
@@ -18,10 +18,15 @@
                 <div class="formBx">
                     <form>
                         <h2>Create an account</h2>
-                        <el-input type="text" placeholder="Username" v-model="UpUsername" style="padding-top: 20px"/>
-                        <el-input type="text" placeholder="Email Address" v-model="UpEmail"/>
-                        <el-input type="password" placeholder="Create Password" v-model="UpPassword" show-password/>
-                        <el-input type="password" placeholder="Confirm Password" v-model="ConfirmPassword" show-password/>
+                        <el-input type="text"
+                                  placeholder="Username"
+                                  v-model="UpUsername"
+                                  style="margin-top: 20px"
+                                  maxlength="10"
+                                  show-word-limit/>
+                        <el-input type="text" placeholder="Email Address" v-model="UpEmail" maxlength="30" show-word-limit/>
+                        <el-input type="password" placeholder="Create Password" v-model="UpPassword" show-password maxlength="30" show-word-limit/>
+                        <el-input type="password" placeholder="Confirm Password" v-model="ConfirmPassword" show-password maxlength="30" show-word-limit/>
                         <input type="submit" value="Sign Up" @click="signUp">
                         <p class="signup">Already have an account? <a @click="toggleForm">Sign in.</a></p>
                     </form>

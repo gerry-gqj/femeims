@@ -3,29 +3,29 @@
     <div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-row :gutter="20">
-          <el-col :span="8">
+          <el-col :span="7" :offset="1">
             <el-form-item label="库存编号: " prop="stockId">
               <el-input type="text"
                         v-model="ruleForm.stockId"
-                        style="width: 200px"
+                        style="width: 100%"
                         autocomplete="on"
                         :clearable="true"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="7">
             <el-form-item label="电机类型: " prop="stockType">
               <el-input type="text"
                         v-model="ruleForm.stockType"
-                        style="width: 200px"
+                        style="width: 100%"
                         autocomplete="on"
                         :clearable="true"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="7">
             <el-form-item label="电机型号: " prop="stockModel">
               <el-input type="text"
                         v-model="ruleForm.stockModel"
-                        style="width: 200px"
+                        style="width: 100%"
                         autocomplete="on"
                         :clearable="true"></el-input>
             </el-form-item>
@@ -33,20 +33,20 @@
         </el-row>
 
         <el-row :gutter="20">
-          <el-col :span="8">
+          <el-col :span="7" :offset="1">
             <el-form-item label="供应商: " prop="supplier" >
               <el-input type="text"
                         v-model="ruleForm.supplier"
-                        style="width: 200px;"
+                        style="width: 100%;"
                         autocomplete="on"
                         :clearable="true"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="7">
             <el-form-item label="库存状态: " prop="status">
               <el-select v-model="ruleForm.status"
                          placeholder="请选择"
-                         style="width: 200px"
+                         style="width: 100%"
                          autocomplete="on"
                          :clearable="true">
                 <el-option label="已入库" value="已入库"></el-option>
@@ -68,37 +68,41 @@
       <hr/>
     </div>
     <div>
-      <el-table :data="tableData"
-                border style="width: 100%" max-height="auto"
-                :header-cell-style="{background:'#24262F',color:'#409eff'}">
-        <el-table-column prop="stockId" label="库存编号" width="150"></el-table-column>
-        <el-table-column prop="stockSupplier" label="供应商" width="100"></el-table-column>
-        <el-table-column prop="stockMotorType" label="类型" width="80"></el-table-column>
-        <el-table-column prop="stockMotorModel" label="型号" width="150"></el-table-column>
-        <el-table-column prop="stockMotorPriceIn" label="库存价值" width="100"></el-table-column>
-        <el-table-column prop="stockMotorAvgPrice" label="均单价" width="80"></el-table-column>
-        <el-table-column prop="stockMotorPriceOut" label="销售价格" width="80"></el-table-column>
-        <el-table-column prop="stockMotorQuantity" label="数量" width="60"></el-table-column>
-        <el-table-column prop="stockUpTime" label="上架时间" width="100"></el-table-column>
-        <el-table-column prop="stockDownTime" label="下架时间" width="100"></el-table-column>
-        <el-table-column prop="stockStatus" label="状态" width="80"></el-table-column>
-        <el-table-column label="选项" width="150" fixed="right">
-          <template slot-scope="scope">
-            <el-button size="mini"
-                       @click="handleUp(scope.row)"
-                       type="primary"
-                       plain
-                       v-if="scope.row.stockStatus!=='已上架'">上架
-            </el-button>
-            <el-button size="mini"
-                       @click="handleDown(scope.row)"
-                       type="danger"
-                       plain
-                       v-if="scope.row.stockStatus==='已上架'">下架
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+      <el-row :gutter="0">
+        <el-col :span="24" :offset="0">
+          <el-table :data="tableData"
+                    border style="width: 100%" max-height="auto"
+                    :header-cell-style="{background:'#726666',color:'#3e3333'}">
+            <el-table-column prop="stockId" label="库存编号"></el-table-column>
+            <el-table-column prop="stockSupplier" label="供应商"></el-table-column>
+            <el-table-column prop="stockMotorType" label="类型"></el-table-column>
+            <el-table-column prop="stockMotorModel" label="型号"></el-table-column>
+            <el-table-column prop="stockMotorPriceIn" label="库存价值"></el-table-column>
+            <el-table-column prop="stockMotorAvgPrice" label="均单价"></el-table-column>
+            <el-table-column prop="stockMotorPriceOut" label="销售价格"></el-table-column>
+            <el-table-column prop="stockMotorQuantity" label="数量"></el-table-column>
+            <el-table-column prop="stockUpTime" label="上架时间"></el-table-column>
+            <el-table-column prop="stockDownTime" label="下架时间"></el-table-column>
+            <el-table-column prop="stockStatus" label="状态"></el-table-column>
+            <el-table-column label="选项" width="100" fixed="right">
+              <template slot-scope="scope">
+                <el-button size="mini"
+                           @click="handleUp(scope.row)"
+                           type="primary"
+                           plain
+                           v-if="scope.row.stockStatus!=='已上架'">上架
+                </el-button>
+                <el-button size="mini"
+                           @click="handleDown(scope.row)"
+                           type="danger"
+                           plain
+                           v-if="scope.row.stockStatus==='已上架'">下架
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
     </div>
 
     <div>

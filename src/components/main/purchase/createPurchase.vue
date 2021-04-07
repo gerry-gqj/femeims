@@ -3,7 +3,7 @@
     <div>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" style="padding-top: 35px">
         <el-row>
-          <el-col :span="12" :offset="6">
+          <el-col :span="12" :offset="7">
             <el-form-item label="供应商: " prop="supplier" >
               <el-input v-model="ruleForm.supplier"
                         style="width: 300px"

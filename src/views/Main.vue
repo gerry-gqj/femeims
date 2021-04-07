@@ -100,38 +100,68 @@
         </keep-alive>
       </el-card>
     </el-main>
-
   </el-container>
 </el-container>
   
   <div>
-    <el-dialog title="用户信息" :visible.sync="dialogFormVisible" :center.sync="centerDialogVisible" width="40%">
-      <el-form :model="form"  label-width="100px" style="height: 480px;width: 450px;text-align: center;padding-left: 60px">
+    <el-dialog title="用户信息"
+               :visible.sync="dialogFormVisible"
+               :center.sync="centerDialogVisible"
+    ><el-form :model="form" label-width="100px">
+      <el-row :gutter="20">
+        <el-col :span="16" :offset="4">
         <el-form-item label="用户Id: ">
-          <el-input v-model="form.userId" :disabled="true" style="width: 200px;"></el-input>
+          <el-input v-model="form.userId" :disabled="true" style="width: 100%;"></el-input>
         </el-form-item>
+
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="16" :offset="4">
         <el-form-item label="用户名: ">
-          <el-input v-model="form.userName" style="width: 200px;"></el-input>
+          <el-input v-model="form.userName" style="width: 100%;"></el-input>
         </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="16" :offset="4">
         <el-form-item label="邮箱: ">
-          <el-input v-model="form.userEmail" style="width: 200px;"></el-input>
+          <el-input v-model="form.userEmail" style="width: 100%;"></el-input>
         </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="16" :offset="4">
         <el-form-item label="密码: ">
-          <el-input v-model="form.userPassword" style="width: 200px;"></el-input>
+          <el-input v-model="form.userPassword" style="width: 100%;"></el-input>
         </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="16" :offset="4">
         <el-form-item label="性别: ">
-          <el-select v-model="form.userGender" style="width: 200px;">
+          <el-select v-model="form.userGender" style="width: 90%;">
             <el-option label="男" value="男"></el-option>
             <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="16" :offset="4">
         <el-form-item label="职位: ">
-          <el-input v-model="form.userPosition" :disabled="true" style="width: 200px;"></el-input>
+          <el-input v-model="form.userPosition" :disabled="true" style="width: 100%;"></el-input>
         </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="16" :offset="4">
         <el-form-item >
           <el-button type="primary" @click="handleModify">修改</el-button>
           <el-button @click="dialogFormVisible = false">退出</el-button>
         </el-form-item>
+        </el-col>
+      </el-row>
       </el-form>
     </el-dialog>
   </div>
@@ -312,17 +342,17 @@ body {
   right: 0;
   top: 60px;
   bottom: 0;
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
 }
 
 .el-icon-arrow-down {
   font-size: 12px;
 }
-.demonstration {
-  display: block;
-  color: #8492a6;
-  font-size: 14px;
-  margin-bottom: 20px;
-}
+/*.demonstration {*/
+/*  display: block;*/
+/*  color: #8492a6;*/
+/*  font-size: 14px;*/
+/*  margin-bottom: 20px;*/
+/*}*/
 
 </style>

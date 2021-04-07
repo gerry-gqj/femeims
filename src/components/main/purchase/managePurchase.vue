@@ -7,14 +7,18 @@
              ref="ruleForm"
              label-width="100px"
              class="demo-ruleForm">
-      <el-row :gutter="20">
-        <el-col :span="8">
+      <el-row :gutter="0">
+        <el-col :span="8" :offset="1">
           <el-form-item label="订单编号: " prop="purchaseId">
             <el-input type="text"
                       v-model="ruleForm.purchaseId"
                       autocomplete="off"
-                      style="width: 200px"
-                      :clearable="true"></el-input>
+                      :clearable="true"
+                      style="width: 80%"
+                      placeholder="请输入"
+                      maxlength="30"
+                      show-word-limit
+            ></el-input>
           </el-form-item>
         </el-col>
 
@@ -23,32 +27,38 @@
             <el-date-picker type="date"
                             placeholder="选择日期"
                             v-model="ruleForm.startTimeFrom"
-                            style="width: 200px;"
                             :clearable="true"
-                            value-format="yyyy-MM-dd"></el-date-picker>
+                            value-format="yyyy-MM-dd"
+                            style="width: 100%"
+            ></el-date-picker>
             </el-form-item>
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="至: " prop="startTimeTo">
+          <el-form-item label=">  ==>   至  ==>  " prop="startTimeTo">
             <el-date-picker type="date"
                             placeholder="选择日期"
                             v-model="ruleForm.startTimeTo"
-                            style="width: 200px;"
                             :clearable="true"
-                            value-format="yyyy-MM-dd"></el-date-picker>
+                            value-format="yyyy-MM-dd"
+                            style="width: 100%"
+            ></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
 
 
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <el-form-item label="供应商" prop="supplier" >
+      <el-row :gutter="0">
+        <el-col :span="8" :offset="1">
+          <el-form-item label="电机供应商: " prop="supplier" >
             <el-input type="text"
                       v-model="ruleForm.supplier"
-                      style="width: 200px;"
-                      :clearable="true"></el-input>
+                      :clearable="true"
+                      style="width: 80%"
+                      placeholder="请输入"
+                      maxlength="30"
+                      show-word-limit
+            ></el-input>
           </el-form-item>
         </el-col>
 
@@ -57,34 +67,35 @@
             <el-date-picker type="date"
                             placeholder="选择日期"
                             v-model="ruleForm.endTimeFrom"
-                            style="width: 200px;"
                             :clearable="true"
-                            value-format="yyyy-MM-dd">
-            </el-date-picker>
+                            value-format="yyyy-MM-dd"
+                            style="width: 100%"
+            ></el-date-picker>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="至: " prop="endTimeTo">
+          <el-form-item label=">  ==>   至  ==>  " prop="endTimeTo">
             <el-date-picker type="date"
                             placeholder="选择日期"
                             v-model="ruleForm.endTimeTo"
-                            style="width: 200px;"
+                            style="width: 100%"
                             :clearable="true"
-                            value-format="yyyy-MM-dd"></el-date-picker>
+                            value-format="yyyy-MM-dd"
+            ></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
 
 
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <el-form-item label="订单状态" prop="status">
+      <el-row :gutter="0">
+        <el-col :span="8" :offset="1">
+          <el-form-item label="订单状态: " prop="status">
             <el-select v-model="ruleForm.status"
                        placeholder="请选择"
-                       style="width: 200px"
-                       :clearable="true">
-              <el-option label="已提交" value="已提交"></el-option>
+                       :clearable="true"
+                       style="width: 80%"
+            ><el-option label="已提交" value="已提交"></el-option>
               <el-option label="已完成" value="已完成"></el-option>
               <el-option label="已取消" value="已取消"></el-option>
             </el-select>
@@ -97,22 +108,22 @@
             <el-date-picker type="date"
                             placeholder="选择日期"
                             v-model="ruleForm.returnTimeFrom"
-                            style="width: 200px;"
                             :clearable="true"
-                            value-format="yyyy-MM-dd">
-            </el-date-picker>
+                            value-format="yyyy-MM-dd"
+                            style="width: 100%"
+            ></el-date-picker>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
-          <el-form-item label="至: " prop="returnTimeTo">
+          <el-form-item label=">  ==>   至  ==>  " prop="returnTimeTo">
             <el-date-picker type="date"
                             placeholder="选择日期"
                             v-model="ruleForm.returnTimeTo"
-                            style="width: 200px;"
                             :clearable="true"
-                            value-format="yyyy-MM-dd">
-            </el-date-picker>
+                            value-format="yyyy-MM-dd"
+                            style="width: 100%"
+            ></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
@@ -130,38 +141,42 @@
   </div>
 
     <div>
-    <el-table :data="tableData"
-              border style="width: 100%" max-height="auto"
-              :header-cell-style="{background:'#24262F',color:'#409eff'}">
-      <el-table-column prop="purchaseId" label="编号" width="100"></el-table-column>
-      <el-table-column prop="purchaseSupplier" label="供应商" width="120"></el-table-column>
-      <el-table-column prop="purchaseMotorType" label="类型" width="80"></el-table-column>
-      <el-table-column prop="purchaseMotorModel" label="型号" width="150"></el-table-column>
-      <el-table-column prop="purchaseMotorPrice" label="单价" width="60"></el-table-column>
-      <el-table-column prop="purchaseMotorQuality" label="数量" width="60"></el-table-column>
-      <el-table-column prop="purchaseStartTime" label="开始时间" width="100"></el-table-column>
-      <el-table-column prop="purchaseEndTime" label="完成时间" width="100"></el-table-column>
-      <el-table-column prop="purchaseReturnTime" label="取消时间" width="100"></el-table-column>
-      <el-table-column prop="purchaseTotalPrice" label="总额" width="100"></el-table-column>
-      <el-table-column prop="purchaseStatus" label="状态" width="100"></el-table-column>
+      <el-row>
+        <el-col :span="24" :offset="0">
+          <el-table :data="tableData"
+                     border style="width: 100%" max-height="auto"
+                    :header-cell-style="{background:'#726666',color:'#3e3333'}">
+            <el-table-column prop="purchaseId" label="编号"></el-table-column>
+            <el-table-column prop="purchaseSupplier" label="供应商"/>
+            <el-table-column prop="purchaseMotorType" label="类型"/>
+            <el-table-column prop="purchaseMotorModel" label="型号"/>
+            <el-table-column prop="purchaseMotorPrice" label="单价"/>
+            <el-table-column prop="purchaseMotorQuality" label="数量"/>
+            <el-table-column prop="purchaseStartTime" label="开始时间"/>
+            <el-table-column prop="purchaseEndTime" label="完成时间"/>
+            <el-table-column prop="purchaseReturnTime" label="取消时间"/>
+            <el-table-column prop="purchaseTotalPrice" label="总额"/>
+            <el-table-column prop="purchaseStatus" label="状态"/>
 
-      <el-table-column label="选项" width="150" fixed="right">
-        <template slot-scope="scope">
-          <el-button size="mini"
-                     @click="handleSure(scope.row)"
-                     type="primary"
-                     plain
-                     v-if="scope.row.purchaseStatus==='已提交'">确认
-          </el-button>
-          <el-button size="mini"
-                     @click="handleCancel(scope.row)"
-                     type="danger"
-                     plain
-                     v-if="scope.row.purchaseStatus!=='已取消'">取消
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+            <el-table-column label="选项" width="155" fixed="right">
+              <template slot-scope="scope">
+                <el-button size="mini"
+                           @click="handleSure(scope.row)"
+                           type="primary"
+                           plain
+                           v-if="scope.row.purchaseStatus==='已提交'">确认
+                </el-button>
+                <el-button size="mini"
+                           @click="handleCancel(scope.row)"
+                           type="danger"
+                           plain
+                           v-if="scope.row.purchaseStatus!=='已取消'">取消
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>

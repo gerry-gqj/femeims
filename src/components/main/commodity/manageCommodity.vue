@@ -3,31 +3,37 @@
     <div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-row :gutter="20">
-          <el-col :span="8">
+          <el-col :span="7" :offset="1">
             <el-form-item label="电机类型: " prop="stockType">
               <el-input type="text"
                         v-model="ruleForm.stockType"
-                        style="width: 200px"
                         autocomplete="on"
-                        :clearable="true"></el-input>
+                        :clearable="true"
+                        maxlength="30"
+                        show-word-limit
+              ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="7">
             <el-form-item label="电机型号: " prop="stockModel">
               <el-input type="text"
                         v-model="ruleForm.stockModel"
-                        style="width: 200px"
                         autocomplete="on"
-                        :clearable="true"></el-input>
+                        :clearable="true"
+                        maxlength="30"
+                        show-word-limit
+              ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="7">
             <el-form-item label="供应商: " prop="supplier" >
               <el-input type="text"
                         v-model="ruleForm.supplier"
-                        style="width: 200px;"
                         autocomplete="on"
-                        :clearable="true"></el-input>
+                        :clearable="true"
+                        maxlength="30"
+                        show-word-limit
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -44,66 +50,123 @@
       <hr/>
     </div>
     <div>
-      <el-table :data="tableData"
-                border style="width: 100%" max-height="auto"
-                :header-cell-style="{background:'#24262F',color:'#409eff'}">
-        <el-table-column prop="stockId" label="库存编号" width="250"></el-table-column>
-        <el-table-column prop="stockSupplier" label="供应商" width="200"></el-table-column>
-        <el-table-column prop="stockMotorType" label="类型" width="80"></el-table-column>
-        <el-table-column prop="stockMotorModel" label="型号" width="150"></el-table-column>
-        <el-table-column prop="stockMotorPriceOut" label="销售价格(元)" width="120"></el-table-column>
-        <el-table-column prop="stockMotorQuantity" label="数量(个)" width="100"></el-table-column>
-        <el-table-column prop="stockStatus" label="状态" width="120"></el-table-column>
-        <el-table-column label="选项" width="150" fixed="right">
-          <template slot-scope="scope">
-            <el-button size="mini"
-                       @click="handleCreateSales(scope.row)"
-                       type="primary"
-                       plain>创建销售订单
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+      <el-row :gutter="20">
+        <el-col :span="24" :offset="0">
+          <el-table :data="tableData"
+                    border style="width: 100%" max-height="auto"
+                    :header-cell-style="{background:'#726666',color:'#3e3333'}">
+            <el-table-column prop="stockId" label="库存编号" fixed="left"></el-table-column>
+            <el-table-column prop="stockSupplier" label="供应商" ></el-table-column>
+            <el-table-column prop="stockMotorType" label="类型" ></el-table-column>
+            <el-table-column prop="stockMotorModel" label="型号" ></el-table-column>
+            <el-table-column prop="stockMotorPriceOut" label="销售价格(元)" ></el-table-column>
+            <el-table-column prop="stockMotorQuantity" label="数量(个)" ></el-table-column>
+            <el-table-column prop="stockStatus" label="状态" ></el-table-column>
+            <el-table-column label="选项" width="150" fixed="right">
+              <template slot-scope="scope">
+                <el-button size="mini"
+                           @click="handleCreateSales(scope.row)"
+                           type="primary"
+                           plain>创建销售订单
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
     </div>
 
     <div>
       <el-dialog title="销售订单"
                  :visible.sync="dialogFormVisible"
                  :center.sync="centerDialogVisible"
-                 width="50%">
-        <el-form :model="salesForm" :rules="salesFormRules"  label-width="90px" ref="salesForm"
-                 style="padding-left: 150px">
-          <el-form-item label="订单号: " prop="salesId">
-            <el-input v-model="salesForm.salesId" :disabled="true" style="width: 300px;"></el-input>
-          </el-form-item>
-          <el-form-item label="客户: " prop="client">
-            <el-input v-model="salesForm.client" style="width: 300px;"></el-input>
-          </el-form-item>
-          <el-form-item label="电机供应商: " prop="supplier">
-            <el-input v-model="salesForm.supplier" style="width: 300px;"></el-input>
-          </el-form-item>
-          <el-form-item label="电机类型: " prop="type">
-            <el-input v-model="salesForm.type" style="width: 300px;"></el-input>
-          </el-form-item>
-          <el-form-item label="电机型号: " prop="model">
-            <el-input v-model="salesForm.model" style="width: 300px;"></el-input>
-          </el-form-item>
-          <el-form-item label="价格: " prop="price">
-            <el-input v-model="salesForm.price" style="width: 300px;"></el-input>
-          </el-form-item>
-          <el-form-item label="数量: " prop="quantity">
-            <el-input v-model="salesForm.quantity" style="width: 300px;"></el-input>
-          </el-form-item>
-          <el-form-item label="总价: " prop="total">
-            <el-input v-model="salesForm.total" style="width: 300px;"></el-input>
-          </el-form-item>
-          <el-form-item label="操作员: " prop="operator">
-            <el-input v-model="salesForm.operator" style="width: 300px;"></el-input>
-          </el-form-item>
-          <el-form-item >
-            <el-button type="primary" @click="handleSubmitSales('salesForm')">确认</el-button>
-            <el-button @click="dialogFormVisible = false">取消</el-button>
-          </el-form-item>
+                 top="15px"
+                 :before-close="handleClose">
+        <el-form :model="salesForm"
+                 :rules="salesFormRules"
+                 label-width="90px"
+                 ref="salesForm"
+                 style="align-self: center;">
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="订单号: " prop="salesId">
+                <el-input v-model="salesForm.salesId" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="客户: " prop="client">
+                <el-input v-model="salesForm.client" ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="电机供应商: " prop="supplier">
+                <el-input v-model="salesForm.supplier" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="电机类型: " prop="type">
+                <el-input v-model="salesForm.type" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="电机型号: " prop="model">
+                <el-input v-model="salesForm.model" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="价格: " prop="price">
+                <el-input v-model="salesForm.price" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="数量: " prop="quantity">
+                <el-input v-model="salesForm.quantity" ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="总价: " prop="total">
+                <el-input v-model="salesForm.total" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="操作员: " prop="operator">
+                <el-input v-model="salesForm.operator" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="6">
+              <el-form-item >
+                <el-button type="primary" @click="handleSubmitSales('salesForm')">确认</el-button>
+                <el-button @click="dialogFormVisible = false">关闭</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
       </el-dialog>
     </div>
@@ -160,6 +223,13 @@ export default {
     };
   },
   methods: {
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+          .then(() => {
+            done();
+          })
+          .catch(() => {});
+    },
     submitForm() {
       console.log(this.ruleForm)
       this.axios.post("/stock/getStockByInfo/",
@@ -231,6 +301,8 @@ export default {
                   salesMotorQuality:this.salesForm.quantity,
                 })).then((response)=>{
               console.log(response.data)
+              this.salesForm.client='';
+              this.salesForm.quantity='';
               let _status = response.data['status'];
               if(_status==='ok'){
                 this.$message({

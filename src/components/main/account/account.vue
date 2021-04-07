@@ -2,40 +2,62 @@
   <div>
     <div style="position: relative">
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-row :gutter="20">
-          <el-col :span="6" :offset="2">
+        <el-row :gutter="0">
+          <el-col :span="7" :offset="1">
             <el-form-item label="用户ID: " prop="userID">
-              <el-input type="text" v-model="ruleForm.userID" style="width: 200px" :clearable="true"></el-input>
+              <el-input type="text"
+                        v-model="ruleForm.userID"
+                        :clearable="true"
+                        placeholder="请输入"
+                        maxlength="10"
+                        show-word-limit
+              ></el-input>
             </el-form-item>
           </el-col>
 
-          <el-col :span="6">
+          <el-col :span="7">
             <el-form-item label="用户名: " prop="userName">
-              <el-input type="text" v-model="ruleForm.userName"  style="width: 200px" :clearable="true"></el-input>
+              <el-input type="text"
+                        v-model="ruleForm.userName"
+                        :clearable="true"
+                        placeholder="请输入"
+                        maxlength="30"
+                        show-word-limit
+              ></el-input>
             </el-form-item>
           </el-col>
 
-          <el-col :span="6">
+          <el-col :span="7">
             <el-form-item label="用户邮箱: " prop="userEmail">
-              <el-input type="text" v-model="ruleForm.userEmail"  style="width: 200px" :clearable="true"></el-input>
+              <el-input type="text"
+                        v-model="ruleForm.userEmail"
+                        :clearable="true"
+                        placeholder="请输入"
+                        maxlength="30"
+                        show-word-limit
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
-        <el-row :gutter="20">
-          <el-col :span="6" :offset="2">
+        <el-row :gutter="0">
+          <el-col :span="7" :offset="1">
             <el-form-item label="性别: " prop="userGender">
-              <el-select v-model="ruleForm.userGender" placeholder="请选择" style="width: 200px" :clearable="true">
-                <el-option label="男" value="男"></el-option>
+              <el-select v-model="ruleForm.userGender"
+                         placeholder="请选择"
+                         :clearable="true"
+                         style="width: 100%"
+              ><el-option label="男" value="男"></el-option>
                 <el-option label="女" value="女"></el-option>
-
               </el-select>
             </el-form-item>
           </el-col>
 
-          <el-col :span="6">
+          <el-col :span="7">
             <el-form-item label="状态: " prop="status">
-              <el-select v-model="ruleForm.status" placeholder="请选择" style="width: 200px" :clearable="true">
+              <el-select v-model="ruleForm.status" placeholder="请选择"
+                         :clearable="true"
+                         style="width: 100%">
                 <el-option label="已激活" value="已激活"></el-option>
                 <el-option label="未激活" value="未激活"></el-option>
                 <el-option label="已注销" value="已注销"></el-option>
@@ -43,10 +65,12 @@
             </el-form-item>
           </el-col>
 
-
-          <el-col :span="6">
+          <el-col :span="7">
             <el-form-item label="职位: " prop="position">
-              <el-select v-model="ruleForm.position" placeholder="请选择" style="width: 200px" :clearable="true">
+              <el-select v-model="ruleForm.position"
+                         placeholder="请选择"
+                         :clearable="true"
+                         style="width: 100%">
                 <el-option label="系统管理员" value="1"></el-option>
                 <el-option label="经理" value="2"></el-option>
                 <el-option label="员工" value="3"></el-option>
@@ -56,7 +80,7 @@
         </el-row>
 
         <el-row>
-          <el-col :span="12" :offset="8">
+          <el-col :span="8" :offset="8">
             <el-form-item >
               <el-button type="primary" @click="submitForm">提交</el-button>
               <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -69,27 +93,41 @@
 
     <div>
       <el-row>
-        <el-col :span="24">
-      <el-table :data="tableData"
-                border
-                style="width: 100%" max-height="auto"
-                :header-cell-style="{background:'#24262F',color:'#409eff'}">
-        <el-table-column prop="userId" label="用户ID" width="150"></el-table-column>
-        <el-table-column prop="userName" label="用户名" width="200"></el-table-column>
-        <el-table-column prop="userEmail" label="用户邮箱" width="250"></el-table-column>
-        <el-table-column prop="userGender" label="性别" width="150"></el-table-column>
-        <el-table-column prop="position.postName" label="职位" width="150"></el-table-column>
-        <el-table-column prop="userStatus" label="状态" width="150"></el-table-column>
-
-        <el-table-column label="选项" width="180" fixed="right">
-          <template slot-scope="scope">
-            <el-button size="mini" @click="activeAccount(scope.row)" type="primary" plain v-if="scope.row.userStatus==='未激活'||scope.row.userStatus==='已注销'">激活</el-button>
-            <el-button size="mini" @click="logoutAccount(scope.row)" type="danger" plain v-if="scope.row.userStatus==='已激活'&&scope.row.position.postName!=='系统管理员'">注销</el-button>
-            <el-button size="mini" @click="activeManager(scope.row)" type="info" plain v-if="scope.row.position.postName==='经理'&&scope.row.userStatus!=='已注销'">员工</el-button>
-            <el-button size="mini" @click="activeEmployee(scope.row)" type="success" plain v-if="scope.row.position.postName==='员工'&&scope.row.userStatus!=='已注销'">经理</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+        <el-col :span="24" :offset="0">
+          <el-table :data="tableData" :border="true"
+                    style="width: 100%" max-height="auto"
+                    :header-cell-style="{background:'#726666',color:'#3e3333'}">
+            <el-table-column prop="userId" label="用户ID" ></el-table-column>
+            <el-table-column prop="userName" label="用户名" ></el-table-column>
+            <el-table-column prop="userEmail" label="用户邮箱" ></el-table-column>
+            <el-table-column prop="userGender" label="性别" ></el-table-column>
+            <el-table-column prop="position.postName" label="职位" ></el-table-column>
+            <el-table-column prop="userStatus" label="状态" ></el-table-column>
+            <el-table-column label="选项" width="150" fixed="right">
+              <template slot-scope="scope">
+                <el-button size="mini"
+                           @click="activeAccount(scope.row)"
+                           type="primary"
+                           plain
+                           v-if="scope.row.userStatus==='未激活'||scope.row.userStatus==='已注销'">激活</el-button>
+                <el-button size="mini"
+                           @click="logoutAccount(scope.row)"
+                           type="danger"
+                           plain
+                           v-if="scope.row.userStatus==='已激活'&&scope.row.position.postName!=='系统管理员'">注销</el-button>
+                <el-button size="mini"
+                           @click="activeManager(scope.row)"
+                           type="info"
+                           plain
+                           v-if="scope.row.position.postName==='经理'&&scope.row.userStatus!=='已注销'">员工</el-button>
+                <el-button size="mini"
+                           @click="activeEmployee(scope.row)"
+                           type="success"
+                           plain
+                           v-if="scope.row.position.postName==='员工'&&scope.row.userStatus!=='已注销'">经理</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </el-col>
       </el-row>
     </div>
