@@ -6,15 +6,21 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Vuex from 'vuex'
+
 import Qs from 'qs';
+
 import elementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+
+import * as echarts from 'echarts';
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+
+Vue.prototype.$echarts = echarts
 Vue.prototype.router = router;
 
 

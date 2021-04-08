@@ -10,7 +10,9 @@
                         <el-input type="text" placeholder="Email" v-model="InEmail" style="margin-top: 20px;" maxlength="30" show-word-limit/>
                         <el-input type="password" placeholder="Password" v-model="InPassword" show-password maxlength="30" show-word-limit/>
                         <input type="submit" value="Login" @click="signIn"/>
-                        <p class="signup">Don't have an account? <a @click="toggleForm">Sign up.</a></p>
+                        <p class="signup">Don't have an account?
+                          <a @click="toggleForm" style="cursor: pointer">Sign up.</a>
+                        </p>
                     </form>
                 </div>
             </div>
@@ -28,7 +30,9 @@
                         <el-input type="password" placeholder="Create Password" v-model="UpPassword" show-password maxlength="30" show-word-limit/>
                         <el-input type="password" placeholder="Confirm Password" v-model="ConfirmPassword" show-password maxlength="30" show-word-limit/>
                         <input type="submit" value="Sign Up" @click="signUp">
-                        <p class="signup">Already have an account? <a @click="toggleForm">Sign in.</a></p>
+                        <p class="signup">Already have an account?
+                          <a @click="toggleForm" style="cursor: pointer">Sign in.</a>
+                        </p>
                     </form>
                 </div>
                 <div class="imgBx"><img src="../assets/signup.jpg"></div>

@@ -52,7 +52,7 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="24" :offset="0">
-          <el-table :data="tableData"
+          <el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                     border style="width: 100%" max-height="auto"
                     :header-cell-style="{background:'#726666',color:'#3e3333'}">
             <el-table-column prop="stockId" label="库存编号" fixed="left"></el-table-column>
@@ -72,6 +72,16 @@
               </template>
             </el-table-column>
           </el-table>
+          <!--分页程序-->
+          <el-pagination align='center'
+                         @size-change="handleSizeChange"
+                         @current-change="handleCurrentChange"
+                         :current-page="currentPage"
+                         :page-sizes="[1,5,10,20]"
+                         :page-size="pageSize"
+                         layout="total, sizes, prev, pager, next, jumper"
+                         :total="tableData.length">
+          </el-pagination>
         </el-col>
       </el-row>
     </div>
@@ -185,6 +195,10 @@ export default {
       }
     };
     return {
+      currentPage: 1, // 当前页码
+      total: 20, // 总条数
+      pageSize: 3, // 每页的数据条数
+
       dialogFormVisible:false,
       centerDialogVisible:true,
       stockId:'',
@@ -223,6 +237,19 @@ export default {
     };
   },
   methods: {
+    //每页条数改变时触发 选择一页显示多少行
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+      this.currentPage = 1;
+      this.pageSize = val;
+    },
+    //当前页改变时触发 跳转其他页
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      this.currentPage = val;
+    },
+
+    /* 关闭订单提交对话框*/
     handleClose(done) {
       this.$confirm('确认关闭？')
           .then(() => {
@@ -230,6 +257,7 @@ export default {
           })
           .catch(() => {});
     },
+    /* 提交查询商品*/
     submitForm() {
       console.log(this.ruleForm)
       this.axios.post("/stock/getStockByInfo/",
@@ -250,10 +278,12 @@ export default {
         console.log(error)
       })
     },
+    /* 清空查询输入框*/
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
 
+    /* 生成订单事件*/
     handleCreateSales(row) {
       console.log(row);
       this.dialogFormVisible=true;
@@ -275,10 +305,7 @@ export default {
           })
     },
 
-
-    /**
-     *创建销售订单
-     * */
+    /* 创建销售订单*/
     handleSubmitSales(formName){
       console.log(formName)
       this.$refs[formName].validate((valid)=>{
@@ -334,9 +361,7 @@ export default {
       })
     },
 
-    /**
-     * 获取所有的库存
-     * */
+    /* 获取所有的库存*/
     getStock(){
       this.axios.post('/stock/getStockByInfo',
           this.$qs.stringify({
@@ -352,6 +377,8 @@ export default {
   },
   mounted() {
     this.getStock()
+    this.currentPage=1;
+    this.pageSize=5;
   },
   watch:{
       'salesForm.quantity': function () {

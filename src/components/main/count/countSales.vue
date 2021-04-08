@@ -143,19 +143,16 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="24" :offset="0">
-          <el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-                    border
-                    show-summary
-                    :summary-method="getSummaries"
-                    style="width: 100%" max-height="auto"
+          <el-table :data="tableData"
+                    border style="width: 100%" max-height="auto"
                     :header-cell-style="{background:'#726666',color:'#3e3333'}">
             <el-table-column prop="salesId" label="编号"/>
             <el-table-column prop="salesClient" label="客户"/>
             <el-table-column prop="salesMotorSupplier" label="供应商"/>
             <el-table-column prop="salesMotorType" label="类型"/>
             <el-table-column prop="salesMotorModel" label="型号"/>
-            <el-table-column prop="salesMotorPrice" label="单价(元)"/>
-            <el-table-column prop="salesMotorQuality" label="数量(个)"/>
+            <el-table-column prop="salesMotorPrice" label="单价"/>
+            <el-table-column prop="salesMotorQuality" label="数量"/>
             <el-table-column prop="salesStartTime" label="开始时间"/>
             <el-table-column prop="salesEndTime" label="完成时间"/>
             <el-table-column prop="salesReturnTime" label="取消时间"/>
@@ -179,18 +176,6 @@
               </template>
             </el-table-column>
           </el-table>
-
-          <!--分页程序-->
-          <el-pagination align='center'
-                         @size-change="handleSizeChange"
-                         @current-change="handleCurrentChange"
-                         :current-page="currentPage"
-                         :page-sizes="[1,5,10,20]"
-                         :page-size="pageSize"
-                         layout="total, sizes, prev, pager, next, jumper"
-                         :total="tableData.length">
-          </el-pagination>
-
         </el-col>
       </el-row>
     </div>
@@ -198,15 +183,13 @@
 </template>
 
 <script>
-
-
 export default {
-  name: "manageSales",
+  name: "countSales",
   data() {
     return {
-      currentPage: 1, // 当前页码
-      total: 20, // 总条数
-      pageSize: 3, // 每页的数据条数
+      currentPage:'',
+      pageSize:'',
+      total:'',
       ruleForm: {
 
         salesId: '',
@@ -230,61 +213,6 @@ export default {
   },
   methods: {
 
-
-    getSummaries(param) {
-      const { columns, data } = param;
-      const sums = [];
-      columns.forEach((column, index) => {
-        if (index === 0) {
-          sums[index] = '总价';
-          return;
-        }if (index ===10){
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            sums[index] += ' (元)';
-          } else {
-            sums[index] = 'N/A';
-          }
-        }if (index===6){
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            sums[index] += '(个)';
-          } else {
-            sums[index] = 'N/A';
-          }
-        }
-      });
-      return sums;
-    },
-
-
-    //每页条数改变时触发 选择一页显示多少行
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
-      this.currentPage = 1;
-      this.pageSize = val;
-    },
-    //当前页改变时触发 跳转其他页
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
-      this.currentPage = val;
-    },
     /**
      * 提交查询表单
      * */
@@ -347,6 +275,7 @@ export default {
         })
       })
     },
+
     /**
      * 订单取消
      * */
@@ -398,8 +327,6 @@ export default {
   // },
   mounted() {
     this.getSales()
-    this.currentPage=1;
-    this.pageSize=5;
   }
 }
 </script>

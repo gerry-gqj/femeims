@@ -70,8 +70,11 @@
     <div>
       <el-row :gutter="0">
         <el-col :span="24" :offset="0">
-          <el-table :data="tableData"
-                    border style="width: 100%" max-height="auto"
+          <el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                    border
+                    show-summary
+                    :summary-method="getSummaries"
+                    style="width: 100%" max-height="auto"
                     :header-cell-style="{background:'#726666',color:'#3e3333'}">
             <el-table-column prop="stockId" label="库存编号"></el-table-column>
             <el-table-column prop="stockSupplier" label="供应商"></el-table-column>
@@ -101,6 +104,18 @@
               </template>
             </el-table-column>
           </el-table>
+
+          <!--分页程序-->
+          <el-pagination align='center'
+                         @size-change="handleSizeChange"
+                         @current-change="handleCurrentChange"
+                         :current-page="currentPage"
+                         :page-sizes="[1,5,10,20]"
+                         :page-size="pageSize"
+                         layout="total, sizes, prev, pager, next, jumper"
+                         :total="tableData.length">
+          </el-pagination>
+
         </el-col>
       </el-row>
     </div>
@@ -150,6 +165,11 @@ export default {
       }
     }
     return {
+
+      currentPage: 1, // 当前页码
+      total: 20, // 总条数
+      pageSize: 3, // 每页的数据条数
+
       dialogFormVisible:false,
       centerDialogVisible:true,
       ruleForm: {
@@ -178,6 +198,62 @@ export default {
     };
   },
   methods: {
+
+    //每页条数改变时触发 选择一页显示多少行
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+      this.currentPage = 1;
+      this.pageSize = val;
+    },
+    //当前页改变时触发 跳转其他页
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      this.currentPage = val;
+    },
+
+    getSummaries(param) {
+      const { columns, data } = param;
+      const sums = [];
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = '总价';
+          return;
+        }if (index ===5){
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] += ' (元)';
+          } else {
+            sums[index] = 'N/A';
+          }
+        }if (index===7){
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] += '(个)';
+          } else {
+            sums[index] = 'N/A';
+          }
+        }
+      });
+      return sums;
+    },
+
+
     submitForm() {
       console.log(this.ruleForm)
       this.axios.post("/stock/getStockByInfo/",
@@ -292,7 +368,12 @@ export default {
   },
   mounted() {
     this.getStock()
-  }
+    this.currentPage=1;
+    this.pageSize=5;
+  },
+  // created() {
+  //   this.getStock()
+  // }
 }
 </script>
 

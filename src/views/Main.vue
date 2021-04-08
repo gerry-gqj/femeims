@@ -4,7 +4,9 @@
   <el-header>
     <el-row :gutter="20">
       <el-col :span="2">
-        <h3 style="text-align: center;line-height: 70px;padding-left: 30px;color: #409eff">Emeims</h3>
+        <h4 style="text-align: center;line-height: 70px;
+        padding-left: 30px;color: #409eff;cursor:pointer"
+        @click="handleToHome" ><a>Emeims</a></h4>
       </el-col>
       <el-col :span="2" :offset="20">
         <div>
@@ -36,7 +38,7 @@
 
         <el-submenu index="1">
           <template slot="title">
-            <i class="el-icon-s-home"></i>
+            <i class="el-icon-sold-out"></i>
             <span>采购订单</span>
           </template>
             <el-menu-item index="/main/purchase/create">
@@ -51,7 +53,7 @@
 
         <el-submenu index="2">
           <template slot="title">
-            <i class="el-icon-menu"></i>
+            <i class="el-icon-sell"></i>
             <span>销售订单</span>
           </template>
             <el-menu-item index="/main/sales/create">
@@ -77,12 +79,31 @@
 
         <el-submenu index="4">
           <template slot="title">
-            <i class="el-icon-location"></i>
+            <i class="el-icon-coin"></i>
             <span>库存单</span>
           </template>
           <el-menu-item index="/main/stock/manage">
             <i class="el-icon-document-checked"></i>
             <span>库存管理</span>
+          </el-menu-item>
+        </el-submenu>
+
+        <el-submenu index="5">
+          <template slot="title">
+            <i class="el-icon-s-data"></i>
+            <span>数据统计</span>
+          </template>
+          <el-menu-item index="/main/count/purchase">
+            <i class="el-icon-document-checked"></i>
+            <span>采购统计</span>
+          </el-menu-item>
+          <el-menu-item index="/main/count/sales">
+            <i class="el-icon-document-checked"></i>
+            <span>销售统计</span>
+          </el-menu-item>
+          <el-menu-item index="/main/count/stock">
+            <i class="el-icon-document-checked"></i>
+            <span>库存统计</span>
           </el-menu-item>
         </el-submenu>
 
@@ -96,8 +117,9 @@
     <el-main>
       <el-card>
         <keep-alive>
-          <router-view/>
+          <router-view v-if="$route.meta.keepAlive"/>
         </keep-alive>
+        <router-view v-if="!$route.meta.keepAlive"></router-view>
       </el-card>
     </el-main>
   </el-container>
@@ -140,7 +162,7 @@
       <el-row :gutter="20">
         <el-col :span="16" :offset="4">
         <el-form-item label="性别: ">
-          <el-select v-model="form.userGender" style="width: 90%;">
+          <el-select v-model="form.userGender" style="width: 100%;">
             <el-option label="男" value="男"></el-option>
             <el-option label="女" value="女"></el-option>
           </el-select>
@@ -249,6 +271,9 @@ export default {
             console.log(error)
           })
         })
+      },
+      handleToHome(){
+        this.$router.push("/main/home");
       }
     },
 }
@@ -330,19 +355,28 @@ body {
   display: block;
   position: absolute;
   left: 0;
+  width: 220px;
   /*top: 60px;*/
   top: 60px;
   bottom: 0;
 }
 
 
+/*.overflow::-webkit-scrollbar {*/
+/*  display:none;*/
+/*}*/
+
+/*.overflow {*/
+/*  width:300px;*/
+/*  overflow:scroll;*/
+/*}*/
 .el-main {
   position: absolute;
-  left: 200px;
+  left: 220px;
   right: 0;
   top: 60px;
   bottom: 0;
-  /*overflow-y: scroll;*/
+  overflow-y: scroll;
 }
 
 .el-icon-arrow-down {

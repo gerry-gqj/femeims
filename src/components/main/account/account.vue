@@ -94,8 +94,8 @@
     <div>
       <el-row>
         <el-col :span="24" :offset="0">
-          <el-table :data="tableData" :border="true"
-                    style="width: 100%" max-height="auto"
+          <el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                    border style="width: 100%" max-height="auto"
                     :header-cell-style="{background:'#726666',color:'#3e3333'}">
             <el-table-column prop="userId" label="用户ID" ></el-table-column>
             <el-table-column prop="userName" label="用户名" ></el-table-column>
@@ -128,6 +128,16 @@
               </template>
             </el-table-column>
           </el-table>
+          <!--分页程序-->
+          <el-pagination align='center'
+                         @size-change="handleSizeChange"
+                         @current-change="handleCurrentChange"
+                         :current-page="currentPage"
+                         :page-sizes="[1,5,10,20]"
+                         :page-size="pageSize"
+                         layout="total, sizes, prev, pager, next, jumper"
+                         :total="tableData.length">
+          </el-pagination>
         </el-col>
       </el-row>
     </div>
@@ -144,6 +154,9 @@ export default {
      * */
     return {
 
+      currentPage: 1, // 当前页码
+      total: 0, // 总条数
+      pageSize: 3, // 每页的数据条数
       /**
        * 表单绑定数据
        * */
@@ -166,6 +179,18 @@ export default {
     };
   },
   methods: {
+
+    //每页条数改变时触发 选择一页显示多少行
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+      this.currentPage = 1;
+      this.pageSize = val;
+    },
+    //当前页改变时触发 跳转其他页
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      this.currentPage = val;
+    },
 
     /**
      * 表单提交事件
@@ -328,6 +353,8 @@ export default {
      * 调用getUserInfo方法在路由跳转后进行数据渲染
      * */
     this.getUserInfo()
+    this.currentPage=1;
+    this.pageSize=5;
   },
 }
 </script>
