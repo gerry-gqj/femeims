@@ -230,7 +230,7 @@ section .container .user .formBx{
     position: relative;
     width: 50%;
     height: 100%;
-    background: #90c8e0;
+    background: #e6e9ec;
     display: flex;
     justify-content: center;
     align-items: center;

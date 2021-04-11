@@ -173,7 +173,7 @@
                            @click="handleCancel(scope.row)"
                            type="danger"
                            plain
-                           v-if="scope.row.purchaseStatus!=='已取消'">取消
+                           v-if="scope.row.purchaseStatus==='已提交'">取消
                 </el-button>
               </template>
             </el-table-column>
