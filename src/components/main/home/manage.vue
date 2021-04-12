@@ -3,12 +3,12 @@
     <el-row>
       <el-col :span="10" :offset="1">
         <el-card>
-          <div id="countUser" style="width: 100%;height: 200%" v-if="this.$store.state.position==='系统管理员'"></div>
+          <div id="countUser" style="width: 100%;height: 200%"></div>
         </el-card>
       </el-col>
       <el-col :span="10" :offset="2">
         <el-card>
-          <div id="countStock" style="width: 100%;height: 200%" v-if="this.$store.state.position==='系统管理员'"></div>
+          <div id="countStock" style="width: 100%;height: 200%"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -16,7 +16,7 @@
     <el-row style="padding-top: 40px;">
       <el-col :span="22" :offset="1">
         <el-card>
-          <div id="countPurchase" style="width: 100%;height: 300%;" v-if="this.$store.state.position==='系统管理员'"></div>
+          <div id="countPurchase" style="width: 100%;height: 300%"></div>
         </el-card>
       </el-col>
     </el-row>

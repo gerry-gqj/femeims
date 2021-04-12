@@ -7,7 +7,7 @@ import NotFount from '@/views/404'
 import Main from '@/views/Main'
 import Begin from '@/views/Begin'
 
-import Home from '@/components/main/Home'
+import Home from '@/components/main/home/Home'
 import createPurchase from '@/components/main/purchase/createPurchase'
 import managePurchase from '@/components/main/purchase/managePurchase'
 
@@ -139,14 +139,23 @@ const routes = [{
 ]
 
 const router = new VueRouter({
+    // mode: 'history',
+    base: process.env.BASE_URL,
     routes
 })
+
+
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+    return routerPush.call(this, location).catch(error=> error)
+}
+
 
 router.beforeEach((to,from,next)=>{
 
     if(to.path==='/begin'||to.path==="/"){
         next()
-    }else if(store.state.userId===''||store.state.userName==='') {
+    }else if(store.state.user.userId===''||store.state.user.userName==='') {
         next("/begin")
     }else {
         next()

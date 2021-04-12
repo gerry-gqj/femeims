@@ -13,19 +13,6 @@
 
 export default {
   name:'App',
-  // created(){
-  //   //从sessionStorage中取值，放到Vuex中
-  //   if(localStorage.getItem('store')){
-  //     this.$store.replaceState(localStorage.getItem('store'));
-  //   }
-  //   //监听页面刷新事件，将Vue最新状态值保存到sessionStorage中
-  //   window.addEventListener('beforeunload',() => {
-  //     localStorage.setItem('store',this.$store.state);
-  //   });
-  // },
-
-
-
   // methods:{
   //   add(){
   //     // this.$store.commit('edit',{age:15,sex:'男'})

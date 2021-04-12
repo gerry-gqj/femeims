@@ -44,6 +44,17 @@ export default {
   methods:{
     countPurchase(){
       let purchaseData = this.$echarts.init(document.getElementById('countPurchase'));
+
+      //   // 新建一个promise对象
+      //   let purchaseData = new Promise((resolve) => {
+      //     resolve()
+      //   })
+      //   //然后异步执行echarts的初始化函数
+      // purchaseData.then(() => {
+      //     //	此dom为echarts图标展示dom
+      //     this.$echarts.init(document.getElementById('countPurchase'))
+      //   })
+
       let option = {
         title: {
           text: '采购',
@@ -100,6 +111,18 @@ export default {
 
     countSales(){
       let salesData = this.$echarts.init(document.getElementById('countSales'));
+
+      // let salesData = new Promise((resolve) => {
+      //   resolve()
+      // })
+      // //然后异步执行echarts的初始化函数
+      // salesData.then(() => {
+      //   //	此dom为echarts图标展示dom
+      //   this.$echarts.init(document.getElementById('countSales'))
+      // })
+
+
+
       let option = {
         title: {
           text: '销售',
@@ -155,7 +178,7 @@ export default {
     getOrderData(){
       this.axios.post("/count/countOrderByOperator",
           this.$qs.stringify({
-            operator:this.$store.state.userName
+            operator:this.$store.state.user.userName
           })).then((response)=>{
             console.log(response.data)
             this.purchaseSubmitData=response.data["countPurchaseByOperatorSubmit"];

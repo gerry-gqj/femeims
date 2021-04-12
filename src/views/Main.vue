@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="main">
   <el-container>
   <el-header>
     <el-row :gutter="20">
@@ -11,7 +11,7 @@
       <el-col :span="2" :offset="20">
         <div>
           <el-dropdown trigger="click">
-            <span class="demonstration" style="color: #409eff">{{$store.state.userName}}
+            <span class="demonstration" style="color: #409eff">{{this.$store.state.user.userName}}
               <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
@@ -24,6 +24,8 @@
     </el-row>
   </el-header>
   <el-container>
+
+
     <el-aside width="250px">
 <!--      <h3 style="text-align: center;line-height: 70px;padding-left: 30px;color: #409eff">Emeims</h3>-->
       <el-menu
@@ -35,7 +37,6 @@
           background-color="#24262F"
           text-color="#fff"
           active-text-color="#ffd04b" style="width: 210px;height: 100%">
-
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-sold-out"></i>
@@ -223,16 +224,16 @@ export default {
           cancelButtonText:"取消",
           type:"warning"
         }).then(()=>{
-          this.$router.push('/begin')
           this.$store.commit({
             type:"clear",
           })
+          this.$router.push('/begin')
         })
       },
       userInfo(){
         this.dialogFormVisible=true
         this.axios.post("/user/getUserByInfo",this.$qs.stringify({
-          userId:this.$store.state.userId
+          userId:this.$store.state.user.userId
         })).then((response)=>{
           console.log(response.data);
           this.form.userId=response.data[0]["userId"];
