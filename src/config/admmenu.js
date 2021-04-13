@@ -11,13 +11,13 @@ module.exports=[
         children:[
             {
                 label: '添加采购',
-                icon:'user-solid',
+                icon: 'sell',
                 name: 'createPurchase',
                 path: '/main/purchase/create'
             },
             {
                 label: '采购管理',
-                icon:'solid',
+                icon: 'sell',
                 name: 'managePurchase',
                 path: '/main/purchase/manage',
             }
@@ -28,14 +28,14 @@ module.exports=[
         icon: 'sell',
         children: [
             {
-                label: '创建销售',
-                icon:'user-solid',
+                label: '添加销售',
+                icon: 'sell',
                 name: 'createSales',
                 path: '/main/sales/create',
             },
             {
                 label: '销售管理',
-                icon:'user',
+                icon: 'sell',
                 name: 'manageSales',
                 path: '/main/sales/manage',
             }
@@ -49,7 +49,7 @@ module.exports=[
     },
     {
         label: '商品管理',
-        icon:'document-checked',
+        icon:'goods',
         name: 'manageStock',
         path: '/main/commodity/manage',
     },

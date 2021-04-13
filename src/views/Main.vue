@@ -3,7 +3,9 @@
   <el-container style="width:100%;height: 100vh;">
     <!--侧边导航-->
     <el-aside width="auto">
-      <navLeft/>
+      <navLeftAdmin v-if="$store.state.user.position==='系统管理员'"/>
+      <navLeftMan v-if="$store.state.user.position==='经理'"/>
+      <navLeftEmp v-if="$store.state.user.position==='员工'"/>
     </el-aside>
 
     <!--顶部导航-->
@@ -35,14 +37,20 @@
 
 import navTop from '@/components/layout/nav-top'
 import navTags from "@/components/layout/tags";
-import navLeft from '@/components/layout/nav-left'
+
+import navLeftAdmin from '@/components/layout/nav-left-admin'
+import navLeftMan from '@/components/layout/nav-left-manage'
+import navLeftEmp from '@/components/layout/nav-left-employee'
 
 export default {
   name:'Main',
   components: {
     navTop,
     navTags,
-    navLeft
+
+    navLeftAdmin,
+    navLeftMan,
+    navLeftEmp,
   },
 }
 

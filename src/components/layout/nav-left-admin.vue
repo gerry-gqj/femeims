@@ -12,8 +12,8 @@
     >
       <!--是否水平折叠收起菜单 会影响这里字段的显示 -->
       <div>
-      <h4 v-show="isCollapse" style="padding-left: 5px;margin-top: 12px;color: #577eff">SYS</h4>
-      <h4 v-show="!isCollapse" style="padding-left: 30px;margin-top: 12px;color: #577eff">EMEIMS</h4>
+        <h5 v-show="isCollapse" style="padding-left: 15px;margin-top: 15px;color: #577eff;font-weight: bold;font-style: italic">IMS</h5>
+        <h4 v-show="!isCollapse" style="padding-left: 30px;margin-top: 15px;color: #577eff;font-weight: bold;font-style: italic">EMEIMS</h4>
       </div>
       <hr style="color: white;border: #409eff"/>
       <el-menu-item
@@ -38,17 +38,19 @@
               :index="subItem.path"
               v-for="(subItem,subIndex) in item.children"
               :key="subIndex"
-              @click="clickMenu(subItem)"
-          >
+              @click="clickMenu(subItem)">
+            <i :class="'el-icon-'+subItem.icon"></i>
             {{subItem.label}}
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
+
 </template>
 
 <script>
-import navmenu from '@/config/navmenu'
+import admmenu from '@/config/admmenu'
+
 
 export default {
   name: "nav-left",
@@ -70,7 +72,7 @@ export default {
   data(){
     return{
       //获取菜单栏数据并赋值给menu
-      menu:navmenu
+      menu:admmenu
     }
   },
   methods:{

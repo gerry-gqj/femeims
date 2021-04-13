@@ -111,18 +111,6 @@ export default {
 
     countSales(){
       let salesData = this.$echarts.init(document.getElementById('countSales'));
-
-      // let salesData = new Promise((resolve) => {
-      //   resolve()
-      // })
-      // //然后异步执行echarts的初始化函数
-      // salesData.then(() => {
-      //   //	此dom为echarts图标展示dom
-      //   this.$echarts.init(document.getElementById('countSales'))
-      // })
-
-
-
       let option = {
         title: {
           text: '销售',
