@@ -236,7 +236,7 @@ export default {
       const sums = [];
       columns.forEach((column, index) => {
         if (index === 0) {
-          sums[index] = '总价';
+          sums[index] = '汇总';
           return;
         }if (index ===10){
           const values = data.map(item => Number(item[column.property]));
