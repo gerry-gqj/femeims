@@ -48,11 +48,15 @@ export default {
 <style scoped>
 .el-tag{
   margin:1px;
+  cursor: pointer;
 }
 .tags{
   display: flex;
+  z-index: 100;
+  /*display: flex;*/
+
   align-items: center;
-  position: relative;
+  position: fixed;
   width: 100%;
   height: 35px;
   background-color: #fff;

@@ -46,7 +46,7 @@ const routes = [{
         children:[{
             index:1,
             path:"/main/home",
-            name:'初始页',
+            name:'home',
             component:Home,
             meta:{
                 keepAlive:false,
@@ -54,7 +54,7 @@ const routes = [{
         },{
             index:2,
             path:"/main/purchase/create",
-            name:'创建采购订单',
+            name:'createPurchase',
             component:createPurchase,
             meta:{
                 keepAlive:true,
@@ -62,7 +62,7 @@ const routes = [{
         },{
             index:3,
             path:"/main/purchase/manage",
-            name:'采购订单管理',
+            name:'managePurchase',
             component:managePurchase,
             meta:{
                 keepAlive:true,
@@ -70,7 +70,7 @@ const routes = [{
         },{
             index:4,
             path:"/main/sales/create",
-            name:'创建销售订单',
+            name:'createSales',
             component:createSales,
             meta:{
                 keepAlive:true,
@@ -78,7 +78,7 @@ const routes = [{
         },{
             index:5,
             path:"/main/sales/manage",
-            name:'销售订单管理',
+            name:'manageSales',
             component:manageSales,
             meta:{
                 keepAlive:true,
@@ -86,7 +86,7 @@ const routes = [{
         },{
             index:6,
             path:"/main/stock/manage",
-            name:'库存管理',
+            name:'manageStock',
             component:manageStock,
                 meta:{
                     keepAlive:true,
@@ -94,7 +94,7 @@ const routes = [{
         },{
             index:7,
             path:"/main/commodity/manage",
-            name:'商品管理',
+            name:'manageCommodity',
             component:manageCommodity,
             meta:{
                 keepAlive:true,
@@ -102,7 +102,7 @@ const routes = [{
         },{
             index:8,
             path:"/main/account/manage",
-            name:'帐号管理',
+            name:'account',
             component:account,
             meta:{
                 keepAlive:true,

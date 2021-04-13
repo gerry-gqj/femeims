@@ -5,15 +5,17 @@
         :collapse="isCollapse"
         :default-active="$route.path"
         class="el-menu-vertical-demo"
-        background-color="#545c64"
+        background-color="#24262F"
         text-color="#fff"
         active-text-color="#ffd04b"
         router
     >
       <!--是否水平折叠收起菜单 会影响这里字段的显示 -->
-      <h3 v-show="isCollapse">后台</h3>
-      <h3 v-show="!isCollapse">后台管理系统</h3>
-      <hr/>
+      <div>
+      <h4 v-show="isCollapse" style="padding-left: 5px;margin-top: 12px;color: #577eff">SYS</h4>
+      <h4 v-show="!isCollapse" style="padding-left: 30px;margin-top: 12px;color: #577eff">EMEIMS</h4>
+      </div>
+      <hr style="color: white;border: #409eff"/>
       <el-menu-item
           :index="item.path"
           v-for="item in noChildren"
@@ -46,7 +48,7 @@
 </template>
 
 <script>
-import navmenu from '../config/navmenu'
+import navmenu from '@/config/navmenu'
 
 export default {
   name: "nav-left",
