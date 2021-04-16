@@ -201,7 +201,6 @@ export default {
       });
     },
 
-
     handleConfirm(){
       this.$confirm("是否确认提交订单",{
         confirmButtonText:"确认",

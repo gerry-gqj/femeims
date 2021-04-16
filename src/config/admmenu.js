@@ -50,7 +50,7 @@ module.exports=[
     {
         label: '商品管理',
         icon:'goods',
-        name: 'manageStock',
+        name: 'manageCommodity',
         path: '/main/commodity/manage',
     },
     {

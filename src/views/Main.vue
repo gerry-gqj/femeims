@@ -41,6 +41,7 @@ import navTags from "@/components/layout/tags";
 import navLeftAdmin from '@/components/layout/nav-left-admin'
 import navLeftMan from '@/components/layout/nav-left-manage'
 import navLeftEmp from '@/components/layout/nav-left-employee'
+import dateFormat from "dateformat";
 
 export default {
   name:'Main',
@@ -52,6 +53,20 @@ export default {
     navLeftMan,
     navLeftEmp,
   },
+  data(){
+    return{
+      timer:'',
+    }
+  },
+
+  created(){
+    this.timer=setInterval(()=>{
+      this.$store.commit({
+        type:'refreshTime',
+        currentTime:dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss' ),
+      })
+    },1000)
+  }
 }
 
 </script>

@@ -29,6 +29,4 @@ export default{
             state.tabsList.splice(result,1);
         }
     },
-    actions: {
-    }
 }

@@ -12,6 +12,9 @@
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
+<!--    <el-input v-model="currentTime"></el-input>-->
+    <div style="text-align: center">{{ $store.state.time.currentDate }}</div>
+
     <div class="r-content">
       <el-dropdown trigger="click" @command="setDialogInfo">
         <span class="el-dropdown-link">
@@ -96,6 +99,9 @@ export default {
   name: "nav-top",
   data() {
     return {
+      timer: '',
+      nowTime:'',
+      currentTime:new Date(),
       dialogFormVisible:false,
       centerDialogVisible:true,
       form:{
@@ -114,6 +120,39 @@ export default {
     })
   },
   methods:{
+    // getTime(){
+    //   let date = new Date();
+    //   let year = date.getFullYear();
+    //   let month = date.getMonth() + 1;
+    //   let day = date.getDate();
+    //   let hour= date.getHours();
+    //   let minute = date.getMinutes();
+    //   let second = date.getSeconds();
+    //   console.log(year+month+day+hour+minute+second);
+    //   this.nowTime=year+month+day+hour+minute+second;
+    //   this.nowTime='asd'
+    //   // const str = ''
+    //   // if(this.hour>12) {
+    //   //   this.hour -= 12;
+    //   //   this.str = " AM";
+    //   // }else{
+    //   //   this.str = " PM";
+    //   // }
+    //   // this.month=check(month);
+    //   // this.day=check(day);
+    //   // this.hour=check(hour);
+    //   // this.minute=check(minute);
+    //   // this.second=check(second);
+    //   // function check(i){
+    //   //   const num = (i<10)?("0"+i) : i;
+    //   //   return num;
+    //   // }
+    //   // this.nowDate = year + "年" + this.month + "月" + this.day+"日";
+    //   this.nowTime =hour + ":" +minute + ":" +second;
+    // },
+    // destroyTimer(){
+    //   this.timer && clearInterval(this.timer) // 在Vue实例销毁前，清除我们的定时器
+    // },
     //控制左侧菜单是否折叠
     collapseMenu() {
       this.$store.commit('collapseMenu')
@@ -189,6 +228,19 @@ export default {
         })
       })
     },
+    // create(){
+    //   this.timer=setInterval((this.getTime, 1000));
+    // },
+    // beforeDestroy(){
+    //   this.destroyTimer();
+    // }
+
+    // mounted(){
+    //   this.$store.commit({
+    //     type:'refreshTime',
+    //     currentTime:'',
+    //   })
+    // }
   }
 }
 </script>

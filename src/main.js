@@ -20,6 +20,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
+import dateFormat from 'dateformat'
+Vue.prototype.$dateFormat = dateFormat
+
 Vue.prototype.$echarts = echarts
 Vue.prototype.router = router;
 
