@@ -12,7 +12,7 @@ export default {
             state.position=payload.position
             console.log('edit'+payload.userId,payload.userName,payload.position)
         },
-        clear(state){
+        clearUser(state){
             state.userId=''
             state.userName=''
             state.position=''

@@ -41,7 +41,7 @@ export default {
       }else{
         this.$router.push({name:this.tags[index].name})
       }
-    }
+    },
   }
 }
 </script>

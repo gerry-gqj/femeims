@@ -61,36 +61,84 @@
     </div>
 
     <div>
-      <el-dialog title="订单信息" :visible.sync="dialogFormVisible" :center.sync="centerDialogVisible" width="40%">
-        <el-form :model="confirmForm"  label-width="100px" style="width: 450px;text-align: center;padding-left: 60px">
-          <el-form-item label="订单号: ">
-            <el-input v-model="confirmForm.purchaseId" :disabled="true" style="width: 200px;"></el-input>
-          </el-form-item>
-          <el-form-item label="供应商: ">
-            <el-input v-model="confirmForm.supplier" style="width: 200px;"></el-input>
-          </el-form-item>
-          <el-form-item label="电机类型: ">
-            <el-input v-model="confirmForm.type" style="width: 200px;"></el-input>
-          </el-form-item>
-          <el-form-item label="电机型号: ">
-            <el-input v-model="confirmForm.model" style="width: 200px;"></el-input>
-          </el-form-item>
-          <el-form-item label="价格: ">
-            <el-input v-model="confirmForm.price" style="width: 200px;"></el-input>
-          </el-form-item>
-          <el-form-item label="数量: ">
-            <el-input v-model="confirmForm.quantity" style="width: 200px;"></el-input>
-          </el-form-item>
-          <el-form-item label="总价: ">
-            <el-input v-model="confirmForm.total" style="width: 200px;"></el-input>
-          </el-form-item>
-          <el-form-item label="操作员: ">
-            <el-input v-model="confirmForm.operator" style="width: 200px;"></el-input>
-          </el-form-item>
-          <el-form-item >
-            <el-button type="primary" @click="handleConfirm">确认</el-button>
-            <el-button @click="dialogFormVisible = false">取消</el-button>
-          </el-form-item>
+      <el-dialog title="订单信息"
+                 :visible.sync="dialogFormVisible"
+                 :center.sync="centerDialogVisible">
+        <el-form :model="confirmForm"
+                 label-width="100px"
+                 style="align-self: center;">
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="订单号: ">
+                <el-input v-model="confirmForm.purchaseId" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="供应商: ">
+                <el-input v-model="confirmForm.supplier" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="电机类型: ">
+                <el-input v-model="confirmForm.type" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="电机型号: ">
+                <el-input v-model="confirmForm.model" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="价格: ">
+                <el-input v-model="confirmForm.price" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="数量: ">
+                <el-input v-model="confirmForm.quantity" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="总价: ">
+                <el-input v-model="confirmForm.total" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item label="操作员: ">
+                <el-input v-model="confirmForm.operator"  :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="16" :offset="4">
+              <el-form-item >
+                <el-button type="primary" @click="handleConfirm">确认</el-button>
+                <el-button @click="dialogFormVisible = false">取消</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
       </el-dialog>
     </div>
@@ -132,7 +180,7 @@ export default {
         price:'',
         quantity:'',
         total:'',
-        operator:this.$store.state.userName,
+        operator:this.$store.state.user.userName,
       },
       confirmForm:{
         purchaseId:'',
@@ -142,7 +190,7 @@ export default {
         price:'',
         quantity:'',
         total:'',
-        operator:this.$store.state.userName,
+        operator:this.$store.state.user.userName,
       },
       rules: {
         supplier: [
@@ -177,14 +225,14 @@ export default {
         if (valid) {
             this.axios.post("/purchase/createPurchaseId",
                 this.$qs.stringify({
-                  creatorId:this.$store.state.userId
+                  creatorId:this.$store.state.user.userId
                 })).then((response)=>{
                   console.log(response.data);
                   this.dialogFormVisible=true;
                   this.confirmForm.purchaseId=response.data["purchaseId"];
                   this.confirmForm.model=this.ruleForm.model;
                   this.confirmForm.type=this.ruleForm.type;
-                  this.confirmForm.operator=this.$store.state.userName;
+                  this.confirmForm.operator=this.$store.state.user.userName;
                   this.confirmForm.price=this.ruleForm.price;
                   this.confirmForm.quantity=this.ruleForm.quantity;
                   this.confirmForm.supplier=this.ruleForm.supplier;
@@ -211,7 +259,7 @@ export default {
             this.$qs.stringify({
               purchaseId:this.confirmForm.purchaseId,
               purchaseSupplier:this.confirmForm.supplier,
-              purchaseOperatorSubmit:this.$store.state.userName,
+              purchaseOperatorSubmit:this.$store.state.user.userName,
               purchaseMotorType:this.confirmForm.type,
               purchaseMotorModel:this.confirmForm.model,
               purchaseMotorPrice:this.confirmForm.price,

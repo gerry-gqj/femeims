@@ -334,7 +334,7 @@ export default {
             this.$qs.stringify({
               purchaseId:row.purchaseId,
               purchaseStatus:'已完成',
-              purchaseOperatorConfirm:this.$store.state.userName,
+              purchaseOperatorConfirm:this.$store.state.user.userName,
             })).then((response)=>{
               console.log(response.data)
               this.submitForm()
@@ -362,7 +362,7 @@ export default {
         this.axios.post("/purchase/updatePurchase/",this.$qs.stringify({
           purchaseId:row.purchaseId,
           purchaseStatus:'已取消',
-          purchaseOperatorCancel:this.$store.state.userName,
+          purchaseOperatorCancel:this.$store.state.user.userName,
         })).then((response)=>{
           console.log(response.data)
           this.$message({

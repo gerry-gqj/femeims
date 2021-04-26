@@ -289,7 +289,7 @@ export default {
       this.dialogFormVisible=true;
       this.axios.post('/sales/createSalesId/',
           this.$qs.stringify({
-            creatorId:this.$store.state.userId,
+            creatorId:this.$store.state.user.userId,
           })).then((response)=>{
             console.log(response)
             console.log(response.data)
@@ -298,7 +298,7 @@ export default {
             this.salesForm.type=row.stockMotorType;
             this.salesForm.model=row.stockMotorModel;
             this.salesForm.price=parseFloat(row.stockMotorPriceOut).toFixed(2);
-            this.salesForm.operator=this.$store.state.userName;
+            this.salesForm.operator=this.$store.state.user.userName;
             this.stockId=row.stockId;
           }).catch((error)=>{
             console.log(error)
@@ -321,7 +321,7 @@ export default {
                   salesId:this.salesForm.salesId,
                   salesClient:this.salesForm.client,
                   salesMotorSupplier:this.salesForm.supplier,
-                  salesOperatorSubmit:this.$store.state.userName,
+                  salesOperatorSubmit:this.$store.state.user.userName,
                   salesMotorType:this.salesForm.type,
                   salesMotorModel:this.salesForm.model,
                   salesMotorPrice:this.salesForm.price,

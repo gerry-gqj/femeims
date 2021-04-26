@@ -27,6 +27,16 @@ export default{
         closeTab(state,val){
             let result=state.tabsList.findIndex(item=>item.name===val.name);
             state.tabsList.splice(result,1);
+        },
+        clearTab(state){
+            state.tabsList=[
+                {
+                    path:"/main/home",
+                    name:"home",
+                    label:"首页",
+                    icon:"home"
+                }
+            ]
         }
     },
 }

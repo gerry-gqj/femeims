@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import Qs from 'qs'
+// import axios from 'axios'
 
 import store from "@/store";
 
@@ -43,7 +45,10 @@ const routes = [{
         path: '/main',
         name: 'Main',
         component: Main,
-        children:[{
+    redirect() {
+        return "/main/home";
+    },
+    children:[{
             index:1,
             path:"/main/home",
             name:'home',
@@ -151,6 +156,21 @@ VueRouter.prototype.push = function push(location) {
 
 
 router.beforeEach((to,from,next)=>{
+    // let state
+    // axios.get("/user/verify")
+    //     .then((response)=>{
+    //         state= response.data["state"];
+    //         console.log("state: "+state)
+    //     }).catch((error)=>{
+    //         console.log(error)
+    //     })
+    // if(to.path==='/begin'||to.path==="/"){
+    //     next()
+    // }else if(state==='true') {
+    //     next()
+    // }else {
+    //     next()
+    // }
 
     if(to.path==='/begin'||to.path==="/"){
         next()

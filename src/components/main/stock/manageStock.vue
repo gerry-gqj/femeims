@@ -288,7 +288,7 @@ export default {
       this.confirmForm.stockModel=row.stockMotorModel;
       this.confirmForm.price=parseFloat(row.stockMotorPriceOut).toFixed(2);
       this.confirmForm.supplier=row.stockSupplier;
-      this.confirmForm.operator=this.$store.state.userName;
+      this.confirmForm.operator=this.$store.state.user.userName;
     },
     handleUpConfirm(formName){
       this.$refs[formName].validate((valid) => {
@@ -303,7 +303,7 @@ export default {
                   stockId:this.confirmForm.stockId,
                   stockStatus:'已上架',
                   stockMotorPriceOut:this.confirmForm.price,
-                  stockOperatorUp:this.$store.state.userName,
+                  stockOperatorUp:this.$store.state.user.userName,
                 })).then((response)=>{
               console.log(response.data)
               this.dialogFormVisible=false;
@@ -339,7 +339,7 @@ export default {
         this.axios.post("/stock/updateStock/",this.$qs.stringify({
           stockId:row.stockId,
           stockStatus:'已下架',
-          stockOperatorDown:this.$store.state.userName,
+          stockOperatorDown:this.$store.state.user.userName,
         })).then((response)=>{
           console.log(response.data)
           this.submitForm()

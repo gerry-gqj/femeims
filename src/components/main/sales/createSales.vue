@@ -132,7 +132,7 @@ export default {
         price:'',
         quantity:'',
         total:'',
-        operator:this.$store.state.userName,
+        operator:this.$store.state.user.userName,
       },
       confirmForm:{
         salesId:'',
@@ -142,7 +142,7 @@ export default {
         price:'',
         quantity:'',
         total:'',
-        operator:this.$store.state.userName,
+        operator:this.$store.state.user.userName,
       },
       rules: {
         client: [
@@ -184,7 +184,7 @@ export default {
             this.confirmForm.salesId=response.data["salesId"];
             this.confirmForm.model=this.ruleForm.model;
             this.confirmForm.type=this.ruleForm.type;
-            this.confirmForm.operator=this.$store.state.userName;
+            this.confirmForm.operator=this.$store.state.user.userName;
             this.confirmForm.price=this.ruleForm.price;
             this.confirmForm.quantity=this.ruleForm.quantity;
             this.confirmForm.client=this.ruleForm.client;
@@ -212,7 +212,7 @@ export default {
             this.$qs.stringify({
               salesId:this.confirmForm.salesId,
               salesClient:this.confirmForm.client,
-              salesOperatorSubmit:this.$store.state.userName,
+              salesOperatorSubmit:this.$store.state.user.userName,
               salesMotorType:this.confirmForm.type,
               salesMotorModel:this.confirmForm.model,
               salesMotorPrice:this.confirmForm.price,

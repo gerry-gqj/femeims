@@ -41,16 +41,16 @@ module.exports=[
             }
         ]
     },
-    {
-        label: '库存管理',
-        icon:'coin',
-        name: 'manageStock',
-        path: '/main/stock/manage',
-    },
+    // {
+    //     label: '库存管理',
+    //     icon:'coin',
+    //     name: 'manageStock',
+    //     path: '/main/stock/manage',
+    // },
     {
         label: '商品管理',
         icon:'document-checked',
-        name: 'manageStock',
+        name: 'manageCommodity',
         path: '/main/commodity/manage',
     },
 ]

@@ -12,7 +12,6 @@
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-<!--    <el-input v-model="currentTime"></el-input>-->
     <div style="text-align: center">{{ $store.state.time.currentDate }}</div>
 
     <div class="r-content">
@@ -44,14 +43,14 @@
       <el-row :gutter="20">
         <el-col :span="16" :offset="4">
           <el-form-item label="用户名: ">
-            <el-input v-model="form.userName" style="width: 100%;"></el-input>
+            <el-input v-model="form.userName" style="width: 100%;" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="16" :offset="4">
           <el-form-item label="邮箱: ">
-            <el-input v-model="form.userEmail" style="width: 100%;"></el-input>
+            <el-input v-model="form.userEmail" style="width: 100%;" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -120,40 +119,6 @@ export default {
     })
   },
   methods:{
-    // getTime(){
-    //   let date = new Date();
-    //   let year = date.getFullYear();
-    //   let month = date.getMonth() + 1;
-    //   let day = date.getDate();
-    //   let hour= date.getHours();
-    //   let minute = date.getMinutes();
-    //   let second = date.getSeconds();
-    //   console.log(year+month+day+hour+minute+second);
-    //   this.nowTime=year+month+day+hour+minute+second;
-    //   this.nowTime='asd'
-    //   // const str = ''
-    //   // if(this.hour>12) {
-    //   //   this.hour -= 12;
-    //   //   this.str = " AM";
-    //   // }else{
-    //   //   this.str = " PM";
-    //   // }
-    //   // this.month=check(month);
-    //   // this.day=check(day);
-    //   // this.hour=check(hour);
-    //   // this.minute=check(minute);
-    //   // this.second=check(second);
-    //   // function check(i){
-    //   //   const num = (i<10)?("0"+i) : i;
-    //   //   return num;
-    //   // }
-    //   // this.nowDate = year + "年" + this.month + "月" + this.day+"日";
-    //   this.nowTime =hour + ":" +minute + ":" +second;
-    // },
-    // destroyTimer(){
-    //   this.timer && clearInterval(this.timer) // 在Vue实例销毁前，清除我们的定时器
-    // },
-    //控制左侧菜单是否折叠
     collapseMenu() {
       this.$store.commit('collapseMenu')
     },
@@ -171,8 +136,9 @@ export default {
     //展示个人信息
     showInfoList() {
       this.dialogFormVisible=true
-      this.axios.post("/user/getUserByInfo",this.$qs.stringify({
-        userId:this.$store.state.user.userId
+      this.axios.post("/user/getUserByInfo",
+          this.$qs.stringify({
+            userId:this.$store.state.user.userId
       })).then((response)=>{
         console.log(response.data);
         this.form.userId=response.data[0]["userId"];
@@ -190,11 +156,31 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
-      }).then(() => {
-        this.$store.commit({
-          type:"clear",
-        })
-        this.$router.push('/begin')
+      }).then(()=>{
+        this.axios.post("/user/logout")
+            .then((response)=>{
+              let state = response.data["state"]
+              // let msg = response.data["msg"]
+              if (state ==="success"){
+                sessionStorage.clear();
+                this.$router.push('/begin')
+                this.$store.commit({
+                  type:"clearUser",
+                })
+                this.$store.commit({
+                  type:"clearTab",
+                })
+              }
+            })
+      // }).then(() => {
+      //   sessionStorage.clear();
+      //   this.$router.push('/begin')
+      //   this.$store.commit({
+      //     type:"clearUser",
+      //   })
+      //   this.$store.commit({
+      //     type:"clearTab",
+      //   })
       }).then(()=>{
         this.$message.success("退出成功")
       }).catch((error) => {
@@ -241,6 +227,9 @@ export default {
     //     currentTime:'',
     //   })
     // }
+
+
+
   }
 }
 </script>

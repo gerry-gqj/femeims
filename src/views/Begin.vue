@@ -9,7 +9,8 @@
                         <h2>Sign In</h2>
                         <el-input type="text" placeholder="Email" v-model="InEmail" style="margin-top: 20px;" maxlength="30" show-word-limit/>
                         <el-input type="password" placeholder="Password" v-model="InPassword" show-password maxlength="30" show-word-limit/>
-                        <input type="submit" value="Login" @click="signIn"/>
+<!--                        <el-button @click="signIn" style="background: #677eff;color: white">Login</el-button>-->
+                        <el-button @click="signIn">Login</el-button>
                         <p class="signup">Don't have an account?
                           <a @click="toggleForm" style="cursor: pointer">Sign up.</a>
                         </p>
@@ -29,7 +30,8 @@
                         <el-input type="text" placeholder="Email Address" v-model="UpEmail" maxlength="30" show-word-limit/>
                         <el-input type="password" placeholder="Create Password" v-model="UpPassword" show-password maxlength="30" show-word-limit/>
                         <el-input type="password" placeholder="Confirm Password" v-model="ConfirmPassword" show-password maxlength="30" show-word-limit/>
-                        <input type="submit" value="Sign Up" @click="signUp">
+<!--                        <el-button  @click="signUp" style="background: #e73e49;color: white">Sign Up</el-button>-->
+                        <el-button  @click="signUp">Sign Up</el-button>
                         <p class="signup">Already have an account?
                           <a @click="toggleForm" style="cursor: pointer">Sign in.</a>
                         </p>
@@ -71,7 +73,7 @@ export default {
             })
           }else {
             this.axios
-                .post("/user/login",
+                .post("/user/logup",
                     this.$qs.stringify({
                       userEmail:this.InEmail,
                       userPassword:this.InPassword,
@@ -126,7 +128,6 @@ export default {
         },
         signUp(){
           console.log(this.UpUsername,this.UpPassword,this.UpPassword,this.ConfirmPassword);
-
           if (this.UpUsername===''||this.UpEmail===''||this.UpPassword===''||this.ConfirmPassword===""){
             this.$message({
               type:"error",
@@ -138,7 +139,7 @@ export default {
               message:"输入密码不一致",
             })
           }else{
-            this.axios.post("/user/logUp",
+            this.axios.post("/user/login",
                 this.$qs.stringify({
                   userName:this.UpUsername,
                   userEmail:this.UpEmail,
@@ -259,7 +260,20 @@ section .container .user .formBx input{
     letter-spacing: 1px;
     font-weight: 300;
 }
-section .container .user .formBx input[type="submit"]{
+
+
+/*section .container .user .formBx input[type="submit"]{*/
+/*    max-width: 100px;*/
+/*    background: #677eff;*/
+/*    color: #fff;*/
+/*    cursor: pointer;*/
+/*    font-size: 14px;*/
+/*    font-weight: 500;*/
+/*    letter-spacing: 1px;*/
+/*    transition: 0.5s;*/
+/*}*/
+
+ section .container .user .formBx .el-button{
     max-width: 100px;
     background: #677eff;
     color: #fff;
@@ -268,10 +282,17 @@ section .container .user .formBx input[type="submit"]{
     font-weight: 500;
     letter-spacing: 1px;
     transition: 0.5s;
+    border-radius: 0px;
 }
-section .container .user.signupBx .formBx input[type="submit"]{
+
+/*section .container .user.signupBx .formBx input[type="submit"]{*/
+/*    background: #e73e49;*/
+/*}*/
+
+ section .container .user.signupBx .formBx .el-button{
     background: #e73e49;
 }
+
 section .container .user .formBx .signup{
     position: relative;
     margin-top: 20px;
@@ -318,18 +339,18 @@ section .container .imgBx{
 section .container.active .signinBx .imgBx{
     top: -100%;
 }
-@media (max-width: 991px){
-    section .container{
-        max-width: 400px;
-    }
-    section .container .imgBx{
-        display: none;
-    }
-    section .container .user .formBx{
-        width: 100%;
-    }
-    section .container.active .signinBx .formBx{
-        top: -100%;
-    }
-}
+/*@media (max-width: 991px){*/
+/*    section .container{*/
+/*        max-width: 400px;*/
+/*    }*/
+/*    section .container .imgBx{*/
+/*        display: none;*/
+/*    }*/
+/*    section .container .user .formBx{*/
+/*        width: 100%;*/
+/*    }*/
+/*    section .container.active .signinBx .formBx{*/
+/*        top: -100%;*/
+/*    }*/
+/*}*/
 </style>

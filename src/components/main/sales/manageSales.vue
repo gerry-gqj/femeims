@@ -334,7 +334,7 @@ export default {
             this.$qs.stringify({
               salesId:row.salesId,
               salesStatus:'已完成',
-              salesOperatorConfirm:this.$store.state.userName,
+              salesOperatorConfirm:this.$store.state.user.userName,
             })).then((response)=>{
           console.log(response.data)
           this.submitForm()
@@ -360,7 +360,7 @@ export default {
         this.axios.post("/sales/updateSales/",this.$qs.stringify({
           salesId:row.salesId,
           salesStatus:'已取消',
-          salesOperatorCancel:this.$store.state.userName,
+          salesOperatorCancel:this.$store.state.user.userName,
           salesMotorQuality:row.salesMotorQuality,
           salesTotalPrice:row.salesTotalPrice,
           supplier:row.salesMotorSupplier,

@@ -224,13 +224,11 @@ export default {
           {
             name: '采购统计',
             type: 'line',
-            stack: '总量',
             data: this.purchaseSeriesData
           },
           {
             name: '销售统计',
             type: 'line',
-            stack: '总量',
             data: this.salesSeriesData
           },
         ]
